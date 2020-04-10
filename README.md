@@ -59,7 +59,7 @@ The base resource for this mapping is the 2018 EIA-861 annual report on the elec
 
 2.	Convert the Utility Data spreadsheet into a `.mat` file.
     *	Scripts:
-        *	`Preprocess_Utility_Data.m`
+        *	`Preprocess_Utility_Data_2018.m`
     *	Required Functions:
         *	`NERC_Region_Information_From_NERC_Region_Short_Name.m`
 
