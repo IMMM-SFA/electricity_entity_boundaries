@@ -7,7 +7,7 @@
 % structure by extracting relevant metadata. The spreadsheet was made in
 % house and gives the FIPS code, county name, state information, population-weighted
 % latitude, population-weighted longitude, area, and total population
-% estimated by the census bureau in 2019 for all counties in the United
+% estimated by the census bureau in 2018 for all counties in the United
 % States.
 
 function Process_County_Data_2018(county_metadata_xlsx, county_metadata_mat, county_shapefile)

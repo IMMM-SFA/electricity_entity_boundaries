@@ -1,22 +1,27 @@
-% Preprocess_Service_Territory_Data.m
-% 20190410
+% Preprocess_Service_Territory_Data_2018.m
+% 20200410
 % Casey D. Burleyson
 % Pacific Northwest National Laboratory
 
-% Convert the "Service_Territory_2017.xlsx" Excel spreadsheet into a Matlab
+% Convert the "Service_Territory_2018.xlsx" Excel spreadsheet into a Matlab
 % structure by extracting relevant metadata.
 
-function Preprocess_Service_Territory_Data(service_territory_xlsx, service_territory_mat, county_metadata_mat)
+% service_territory_xlsx = '/Users/burl878/OneDrive - PNNL/Documents/Code/IMMM/Mapping/electricity_entity_boundaries_2018/EIA_861_Dataset/f8612018/Service_Territory_2018.xlsx';
+% service_territory_mat = '/Users/burl878/OneDrive - PNNL/Documents/Code/IMMM/Mapping/electricity_entity_boundaries_2018/Intermediate_Files/Service_Territory_2018.mat';
+% county_metadata_mat = '/Users/burl878/OneDrive - PNNL/Documents/Code/IMMM/Mapping/electricity_entity_boundaries_2018/Intermediate_Files/County_Metadata_2018.mat';
+% Preprocess_Service_Territory_Data_2018(service_territory_xlsx, service_territory_mat, county_metadata_mat)
+
+function Preprocess_Service_Territory_Data_2018(service_territory_xlsx, service_territory_mat, county_metadata_mat)
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              BEGIN PROCESSING SECTION               %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Load in the county metadata file processed using
-    % "Read_County_Metadata_Spreadsheet.m" script:
+    % "Process_County_Data_2018.m" script:
     load(county_metadata_mat);
 
     % Read the raw data from the spreadsheet into a cell structure:
-    [~,~,Raw_Data] = xlsread(service_territory_xlsx,'Counties_States','B2:E11828');
+    [~,~,Raw_Data] = xlsread(service_territory_xlsx,'Counties_States','B2:E11827');
     Raw_Data(cellfun(@(x) ~isempty(x) && isnumeric(x) && isnan(x),Raw_Data)) = {''};
 
     % Loop over all of the utilities to extract relevant metadata:

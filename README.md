@@ -71,7 +71,7 @@ The base resource for this mapping is the 2018 EIA-861 annual report on the elec
 
 4.	Convert the Service Territory spreadsheet into a `.mat` file and match the listed counties to counties from the County Metadata dataset.
     *	Scripts:
-        *	`Preprocess_Service_Territory_Data.m`
+        *	`Preprocess_Service_Territory_Data_2018.m`
     *	Required Functions:
         *	`State_FIPS_From_State_Abbreviations.m`
 
