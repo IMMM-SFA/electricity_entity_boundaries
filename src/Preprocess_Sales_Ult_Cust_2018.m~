@@ -6,7 +6,7 @@
 % Convert the "Sales_Ult_Cust_2018.xlsx" Excel spreadsheet into a Matlab
 % structure by extracting relevant metadata.
 
-function Preprocess_Sales_Ult_Cust_2018(sales_ult_customer_xlsx,sales_ult_customer_mat)
+function Preprocess_Sales_Ult_Cust_2018(sales_ult_customer_xlsx, sales_ulil_customer_mat)
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              BEGIN PROCESSING SECTION               %
@@ -86,7 +86,7 @@ function Preprocess_Sales_Ult_Cust_2018(sales_ult_customer_xlsx,sales_ult_custom
 %     Utility_Table(3260,5) = NaN.*0;
 
     % Save the output
-    save(sales_ult_customer_mat,'Utility','Utility_Table');
+    save(sales_ulil_customer_mat,'Utility','Utility_Table');
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %               END PROCESSING SECTION                %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

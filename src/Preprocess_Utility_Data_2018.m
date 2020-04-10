@@ -6,13 +6,13 @@
 % Convert the "Utility_Data_2018.xlsx" Excel spreadsheet into a Matlab
 % structure by extracting relevant metadata.
 
-function Preprocess_Utility_Data(utility_data_xlsx, utility_data_mat)
+function Preprocess_Utility_Data_2018(utility_data_xlsx, utility_data_mat)
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              BEGIN PROCESSING SECTION               %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Read the raw data from the spreadsheet into a cell structure:
-    [~,~,Raw_Data] = xlsread(utility_data_xlsx,'States','B3:N2290');
+    [~,~,Raw_Data] = xlsread(utility_data_xlsx,'States','B3:N2292');
     Raw_Data(cellfun(@(x) ~isempty(x) && isnumeric(x) && isnan(x),Raw_Data)) = {''};
 
     % Loop over all of the utilities to extract relevant metadata:
@@ -28,15 +28,9 @@ function Preprocess_Utility_Data(utility_data_xlsx, utility_data_mat)
         % Look up NERC region information from the NERC abbreviation:
         if isempty(Raw_Data{row,5}) == 0
            NERC_Region_Short_Name = Raw_Data{row,5};
-           % Catch a few errors:
-           if row == 670
-              NERC_Region_Short_Name = 'SERC'; % Reason: Correcting for lack of capitalization
-           elseif row == 755
-              NERC_Region_Short_Name = 'SERC'; % Reason: Two NERC regions were listed so use the first one given
-           elseif row == 1012
+           % Catch one error:
+           if row == 1010
               NERC_Region_Short_Name = 'TRE'; % Reason: Two NERC regions were listed so use the first one given
-           elseif row == 2177
-              NERC_Region_Short_Name = 'NPCC'; % Reason: Correcting for lack of capitalization
            end
            [NERC_Region_Code,NERC_Region_Long_Name] = NERC_Region_Information_From_NERC_Region_Short_Name(NERC_Region_Short_Name);
         else
@@ -52,8 +46,7 @@ function Preprocess_Utility_Data(utility_data_xlsx, utility_data_mat)
            if isempty(Raw_Data{row,11}) == 0 & Raw_Data{row,11} == 'Y'; [NERC_Region_Code,NERC_Region_Long_Name] = NERC_Region_From_Short_Name('SERC'); NERC_Region_Short_Name = 'SERC'; i = 1; end
            if isempty(Raw_Data{row,12}) == 0 & Raw_Data{row,12} == 'Y'; [NERC_Region_Code,NERC_Region_Long_Name] = NERC_Region_From_Short_Name('SPP');  NERC_Region_Short_Name = 'SPP';  i = 1; end
            if isempty(Raw_Data{row,13}) == 0 & Raw_Data{row,13} == 'Y'; [NERC_Region_Code,NERC_Region_Long_Name] = NERC_Region_From_Short_Name('WECC'); NERC_Region_Short_Name = 'WECC'; i = 1; end
-           % If no other region was listed then assign a missing value for that
-           % utility NERC region:
+           % If no other region was listed then assign a missing value for that utility NERC region:
            if i == 0
               NERC_Region_Code = -9999;
               NERC_Region_Long_Name = 'Missing';
@@ -83,10 +76,10 @@ function Preprocess_Utility_Data(utility_data_xlsx, utility_data_mat)
 
     % Manual assign the 'WAPA-- Western Area Power Administration' to be in the WECC:
     [NERC_Region_Short_Name,NERC_Region_Long_Name] = NERC_Region_Information_From_NERC_Region_Code(8);
-    Utility(1916,1).NERC_Region_Code = 8;
-    Utility(1916,1).NERC_Region_Long_Name = NERC_Region_Long_Name;
-    Utility(1916,1).NERC_Region_Short_Name = NERC_Region_Short_Name;
-    Utility_Table(1916,3) = 8;
+    Utility(1909,1).NERC_Region_Code = 8;
+    Utility(1909,1).NERC_Region_Long_Name = NERC_Region_Long_Name;
+    Utility(1909,1).NERC_Region_Short_Name = NERC_Region_Short_Name;
+    Utility_Table(1909,3) = 8;
     clear NERC_Region_Short_Name NERC_Region_Long_Name
 
     % Save the output:
@@ -94,5 +87,4 @@ function Preprocess_Utility_Data(utility_data_xlsx, utility_data_mat)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %               END PROCESSING SECTION                %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 end
