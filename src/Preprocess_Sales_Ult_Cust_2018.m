@@ -1,4 +1,4 @@
-% Preprocess_Sales_Ult_Cust_2018_Data.m
+% Preprocess_Sales_Ult_Cust_2018.m
 % 20200410
 % Casey D. Burleyson
 % Pacific Northwest National Laboratory
@@ -6,7 +6,7 @@
 % Convert the "Sales_Ult_Cust_2018.xlsx" Excel spreadsheet into a Matlab
 % structure by extracting relevant metadata.
 
-function Preprocess_Sales_Ult_Cust_2018_Data(sales_ulil_customer_xlsx, sales_ulil_customer_mat)
+function Preprocess_Sales_Ult_Cust_2018(sales_ulil_customer_xlsx, sales_ulil_customer_mat)
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              BEGIN PROCESSING SECTION               %

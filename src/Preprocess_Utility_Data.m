@@ -1,9 +1,9 @@
-% Preprocess_Utility_Data.m
-% 20190409
+% Preprocess_Utility_Data_2018.m
+% 20200410
 % Casey D. Burleyson
 % Pacific Northwest National Laboratory
 
-% Convert the "Utility_Data_2017.xlsx" Excel spreadsheet into a Matlab
+% Convert the "Utility_Data_2018.xlsx" Excel spreadsheet into a Matlab
 % structure by extracting relevant metadata.
 
 function Preprocess_Utility_Data(utility_data_xlsx, utility_data_mat)
