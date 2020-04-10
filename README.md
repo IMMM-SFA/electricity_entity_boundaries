@@ -1,8 +1,9 @@
-# electricity_entity_boundaries
-Nested boundaries for electricity entities (e.g., counties, utilities, balancing authority areas, NERC regions and subregions) including workflow processing for automated mapping.
+# electricity_entity_boundaries_2018
+Nested boundaries for electricity entities (e.g., counties, utilities, balancing authority areas, NERC regions and subregions) including workflow processing for automated mapping. This repository is for the 2018 version of the EIA-861 dataset.
 
 ## Contact
 Casey Burleyson, PNNL
+casey.burleyson@pnnl.gov
 
 ## Setting-up and Executing the Code
 1. Clone this repository using `git clone https://github.com/IMMM-SFA/electricity_entity_boundaries.git`
@@ -21,7 +22,7 @@ Historical data from utilities and other entities in the electric sector are a k
 
 This workflow goes through the steps of mapping utilities, balancing authorities (BAs), and NERC regions to counties in the U.S. Counties serve as a useful base spatial scale because they can be aggregated or disaggregated easily using populations as weights in the scaling and because other datasets that are useful in multisector dynamics (e.g., population) are often available at the county scale. Other teams, including the team responsible for this workflow, have completed this mapping in the past, but their efforts were not documented and their process was not repeatable. Previous versions of this mappings relied on assumptions and other subjective decisions that were not communicated or well understood. The purpose of this workflow is to document step-by-step the process used to create a utility-to-BA-to-NERC region-to-county mapping.
 
-The base resource for this mapping is the EIA-861 annual report on the electric power industry. Within this dataset are a series of files in which all utilities in the U.S. report the BA which they operate under, their NERC region, and counties and states where they operate. The technical challenge is that these mappings are reported in individual data files. The bulk of the workflow involves merging these individual files to create a complete mapping. As the EIA-861 data is reported annually, this workflow should be repeatable on subsequent years of data assuming that the same base information is included in all future versions.
+The base resource for this mapping is the 2018 EIA-861 annual report on the electric power industry. Within this dataset are a series of files in which all utilities in the U.S. report the BA which they operate under, their NERC region, and counties and states where they operate. The technical challenge is that these mappings are reported in individual data files. The bulk of the workflow involves merging these individual files to create a complete mapping. As the EIA-861 data is reported annually, this workflow should be repeatable on subsequent years of data assuming that the same base information is included in all future versions.
 
 ## Input Data
 1. Annual Electric Power Industry Report: Form [EIA-861](https://www.eia.gov/electricity/data/eia861/) Detailed Data Files
