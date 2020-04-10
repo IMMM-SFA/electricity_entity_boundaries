@@ -65,7 +65,7 @@ The base resource for this mapping is the 2018 EIA-861 annual report on the elec
 
 3.	Convert the County Metadata spreadsheet into a `.mat` file.
     *	Scripts:
-        *	`Process_County_Data.m`
+        *	`Process_County_Data_2018.m`
     *	Required Functions:
         *	`State_Information_From_State_FIPS.m`
 
