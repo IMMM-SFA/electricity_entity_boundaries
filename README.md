@@ -6,9 +6,9 @@ Casey Burleyson, PNNL
 casey.burleyson@pnnl.gov
 
 ## Setting-up and Executing the Code
-1. Clone this repository using `git clone https://github.com/IMMM-SFA/electricity_entity_boundaries.git`
+1. Clone this repository using `git clone https://github.com/IMMM-SFA/electricity_entity_boundaries_2018.git`
 
-2. Download and uncompress the EIA-861 file (https://dx.doi.org/10.25584/data.2019-04.720/1508166) from the IM3 data repository. You should also download the County_Metadata.xlsx file (https://dx.doi.org/10.25584/data.2019-04.721/1508393).
+2. Download and uncompress the EIA-861 file (TBD) from the IM3 data repository. You should also download the County_Metadata.xlsx file (https://dx.doi.org/10.25584/data.2019-04.721/1508393).
 
 3. Set-up the `config.ini` file found in the root of this repository.  Be sure to adjust the paths of each file to represent where the downloaded input data is stored and where you want the output data to be saved to.
 
@@ -32,11 +32,11 @@ The base resource for this mapping is the 2018 EIA-861 annual report on the elec
     * _Accessed_: 9-April 2019
 
 2. Sales to Ultimate Customers
-    * _Source_: `Sales_Ult_Cust_2017.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
+    * _Source_: `Sales_Ult_Cust_2018.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
     * _Purpose_: Maps utilities to balancing authorities (BAs) and provides the total sales for each utility that are used as a tie-breaker when more than there is more than one BA or NERC region per county.
 
 3. Utility Data
-    * _Source_: `Utility_Data_2017.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
+    * _Source_: `Utility_Data_2018.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
     * _Purpose_: Maps utilities to NERC regions.
 
 4. County Metadata
@@ -45,7 +45,7 @@ The base resource for this mapping is the 2018 EIA-861 annual report on the elec
     * _Purpose_: Gives basic county information needed for mapping and scaling.
 
 5. Service Territory
-    * _Source_: `Service_Territory_2017.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
+    * _Source_: `Service_Territory_2018.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
     * _Purpose_: Maps utilities to the states and counties that they operate in.
 
 ## What the Code Does
