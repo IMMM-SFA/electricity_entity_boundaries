@@ -2,7 +2,7 @@
 Nested boundaries for electricity entities (e.g., counties, utilities, balancing authority areas, NERC regions and subregions) including workflow processing for automated mapping. This repository is for the 2018 version of the EIA-861 dataset.
 
 ## Contact
-Casey Burleyson, PNNL
+Casey Burleyson, PNNL,
 casey.burleyson@pnnl.gov
 
 ## Setting-up and Executing the Code
@@ -27,9 +27,9 @@ The base resource for this mapping is the 2018 EIA-861 annual report on the elec
 ## Input Data
 1. Annual Electric Power Industry Report: Form [EIA-861](https://www.eia.gov/electricity/data/eia861/) Detailed Data Files
     * _Raw_Source_: [https://www.eia.gov/electricity/data/eia861/]
-    * _DOI_Download_: [https://dx.doi.org/10.25584/data.2019-04.720/1508166]
+    * _DOI_Download_: TBD
     * _Purpose_: Contains all of the detailed files described below
-    * _Accessed_: 9-April 2019
+    * _Accessed_: 10-April 2020
 
 2. Sales to Ultimate Customers
     * _Source_: `Sales_Ult_Cust_2018.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
@@ -40,8 +40,8 @@ The base resource for this mapping is the 2018 EIA-861 annual report on the elec
     * _Purpose_: Maps utilities to NERC regions.
 
 4. County Metadata
-    * _Source_: This spreadsheet (`County_Metadata.xlsx`) was made in house and gives the FIPS code, county name, state information, population-weighted latitude, population-weighted longitude, area, and total population estimated by the census bureau in 2017 for all counties in the United States.
-    * _DOI_Download_: [https://dx.doi.org/10.25584/data.2019-04.721/1508393]
+    * _Source_: This spreadsheet (`County_Metadata_2018.xlsx`) was made in house and gives the FIPS code, county name, state information, population-weighted latitude, population-weighted longitude, area, and total population estimated by the census bureau in 2018 for all counties in the United States.
+    * _DOI_Download_: TBD
     * _Purpose_: Gives basic county information needed for mapping and scaling.
 
 5. Service Territory
