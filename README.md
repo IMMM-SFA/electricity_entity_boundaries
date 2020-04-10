@@ -52,7 +52,7 @@ The base resource for this mapping is the 2018 EIA-861 annual report on the elec
 
 1.	Convert the Sales to Ultimate Customers spreadsheet into `.mat` file.
     *	Scripts:
-        *	`Preprocess_Sales_Util_Customer_Data.m`
+        *	`Preprocess_Sales_Ult_Cust_2018_Data.m`
     *	Required Functions:
         *	`BA_Information_From_BA_Short_Name.m`
         *	`State_FIPS_From_State_Abbreviations.m`
