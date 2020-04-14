@@ -1,18 +1,16 @@
-# electricity_entity_boundaries_2018
-Nested boundaries for electricity entities (e.g., counties, utilities, balancing authority areas, NERC regions and subregions) including workflow processing for automated mapping. This repository is for the 2018 version of the EIA-861 dataset.
+# electricity_entity_boundaries
+Nested boundaries for electricity entities (e.g., counties, utilities, balancing authority areas, NERC regions, and subregions) including workflow processing for automated mapping. This repository contains a generic version of the code that works for the 2017 and 2018 versions of the EIA-861 dataset. Input files, including the raw versions of the EIA-861 datasets, are included in this repository.
 
 ## Contact
 Casey Burleyson, PNNL,
 casey.burleyson@pnnl.gov
 
 ## Setting-up and Executing the Code
-1. Clone this repository using `git clone https://github.com/IMMM-SFA/electricity_entity_boundaries_2018.git`
+1. Clone this repository using `git clone https://github.com/IMMM-SFA/electricity_entity_boundaries.git`
 
-2. Download and uncompress the EIA-861 file (TBD) from the IM3 data repository. You should also download the County_Metadata.xlsx file (https://dx.doi.org/10.25584/data.2019-04.721/1508393).
+2. Set-up the `config.ini` file found in the root of this repository.  Be sure to adjust the paths of each file to represent where the downloaded input data is stored and where you want the output data to be saved to.
 
-3. Set-up the `config.ini` file found in the root of this repository.  Be sure to adjust the paths of each file to represent where the downloaded input data is stored and where you want the output data to be saved to.
-
-4. To run code from terminal or command line:
+3. To run code from terminal or command line:
     - Navigate to the `src` directory in this repository
     - Assuming you have `matlab` in your path, run the following command in the terminal:  `matlab "Main('<path to config file>')"` where `<path to config file>` if the full path with file name and extension of your modified `config.ini` file
     - If running from a `matlab` prompt:  `Main('<path to config file>')`
@@ -22,56 +20,54 @@ Historical data from utilities and other entities in the electric sector are a k
 
 This workflow goes through the steps of mapping utilities, balancing authorities (BAs), and NERC regions to counties in the U.S. Counties serve as a useful base spatial scale because they can be aggregated or disaggregated easily using populations as weights in the scaling and because other datasets that are useful in multisector dynamics (e.g., population) are often available at the county scale. Other teams, including the team responsible for this workflow, have completed this mapping in the past, but their efforts were not documented and their process was not repeatable. Previous versions of this mappings relied on assumptions and other subjective decisions that were not communicated or well understood. The purpose of this workflow is to document step-by-step the process used to create a utility-to-BA-to-NERC region-to-county mapping.
 
-The base resource for this mapping is the 2018 EIA-861 annual report on the electric power industry. Within this dataset are a series of files in which all utilities in the U.S. report the BA which they operate under, their NERC region, and counties and states where they operate. The technical challenge is that these mappings are reported in individual data files. The bulk of the workflow involves merging these individual files to create a complete mapping. As the EIA-861 data is reported annually, this workflow should be repeatable on subsequent years of data assuming that the same base information is included in all future versions.
+The base resource for this mapping is the EIA-861 annual report on the electric power industry. Within this dataset are a series of files in which all utilities in the U.S. report the BA which they operate under, their NERC region, and counties and states where they operate. The technical challenge is that these mappings are reported in individual data files. The bulk of the workflow involves merging these individual files to create a complete mapping. As the EIA-861 data is reported annually, this workflow should be repeatable on subsequent years of data assuming that the same base information is included in all future versions.
 
 ## Input Data
 1. Annual Electric Power Industry Report: Form [EIA-861](https://www.eia.gov/electricity/data/eia861/) Detailed Data Files
     * _Raw_Source_: [https://www.eia.gov/electricity/data/eia861/]
-    * _DOI_Download_: TBD
     * _Purpose_: Contains all of the detailed files described below
     * _Accessed_: 10-April 2020
 
 2. Sales to Ultimate Customers
-    * _Source_: `Sales_Ult_Cust_2018.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
+    * _Source_: `Sales_Ult_Cust_YYYY.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
     * _Purpose_: Maps utilities to balancing authorities (BAs) and provides the total sales for each utility that are used as a tie-breaker when more than there is more than one BA or NERC region per county.
 
 3. Utility Data
-    * _Source_: `Utility_Data_2018.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
+    * _Source_: `Utility_Data_YYYY.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
     * _Purpose_: Maps utilities to NERC regions.
 
 4. County Metadata
-    * _Source_: This spreadsheet (`County_Metadata_2018.xlsx`) was made in house and gives the FIPS code, county name, state information, population-weighted latitude, population-weighted longitude, area, and total population estimated by the census bureau in 2018 for all counties in the United States.
-    * _DOI_Download_: TBD
+    * _Source_: This csv file (`county_populations_2000_to_2019.csv`) was made in house and gives the FIPS code, county name, state name, and total population estimated by the census bureau in 2000-2019 for all counties in the United States.
     * _Purpose_: Gives basic county information needed for mapping and scaling.
 
 5. Service Territory
-    * _Source_: `Service_Territory_2018.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
+    * _Source_: `Service_Territory_YYYY.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
     * _Purpose_: Maps utilities to the states and counties that they operate in.
 
 ## What the Code Does
 
 1.	Convert the Sales to Ultimate Customers spreadsheet into `.mat` file.
     *	Scripts:
-        *	`Preprocess_Sales_Ult_Cust_2018.m`
+        *	`Preprocess_Sales_Ult_Cust_All_Years.m`
     *	Required Functions:
         *	`BA_Information_From_BA_Short_Name.m`
         *	`State_FIPS_From_State_Abbreviations.m`
 
 2.	Convert the Utility Data spreadsheet into a `.mat` file.
     *	Scripts:
-        *	`Preprocess_Utility_Data_2018.m`
+        *	`Preprocess_Utility_Data_All_Years.m`
     *	Required Functions:
         *	`NERC_Region_Information_From_NERC_Region_Short_Name.m`
 
-3.	Convert the County Metadata spreadsheet into a `.mat` file.
+3.	Convert the county population `.csv` file into a `.mat` file.
     *	Scripts:
-        *	`Process_County_Data_2018.m`
+        *	`Preprocess_County_Data_All_Years.m`
     *	Required Functions:
         *	`State_Information_From_State_FIPS.m`
 
 4.	Convert the Service Territory spreadsheet into a `.mat` file and match the listed counties to counties from the County Metadata dataset.
     *	Scripts:
-        *	`Preprocess_Service_Territory_Data_2018.m`
+        *	`Preprocess_Service_Territory_Data_All_Years.m`
     *	Required Functions:
         *	`State_FIPS_From_State_Abbreviations.m`
 
