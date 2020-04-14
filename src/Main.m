@@ -22,6 +22,7 @@ function Main(ini_file)
     % project level settings
     run_data_prep = ini.GetValues(project_section, 'run_data_prep');
     run_plots = ini.GetValues(project_section, 'run_plots');
+    year = ini.GetValues(project_section, 'year');
 
     % input data variables
     county_metadata_xlsx = ini.GetValues(in_data_section, 'county_metadata_xlsx');
