@@ -51,9 +51,8 @@ function Main_All_Years(ini_file)
 
     % run preprocessing of source data if user selected
     if run_data_prep == 1
-
         % prepare county metadata mat file
-        Process_County_Data_All_Years(county_populations_csv,county_metadata_mat,county_shapefile,year);
+        Preprocess_County_Data_All_Years(county_populations_csv,county_metadata_mat,county_shapefile,year);
 
         % prepare sales by utility and customer mat file
         Preprocess_Sales_Ult_Customer_Data_All_Years(sales_ult_customer_xlsx,sales_ult_customer_mat,year);
@@ -61,9 +60,8 @@ function Main_All_Years(ini_file)
         % prepare service by territory mat file
         Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,service_territory_mat,county_metadata_mat,year);
 
-%         % prepare utility data mat file
-%         Preprocess_Utility_Data(utility_data_xlsx, utility_data_mat);
-
+        % prepare utility data mat file
+        Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data_mat,year);
     end
 
 %     % run main processing to generate output summary mat file
