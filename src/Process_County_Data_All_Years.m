@@ -8,7 +8,7 @@
 % house and gives the FIPS code, county name, state information, and total population
 % estimated by the census bureau for all counties in the United States from 2000-2019.
 
-function Process_County_Data_All_Years(county_populations_csv,county_populations_mat,county_shapefile,year)
+function Process_County_Data_All_Years(county_populations_csv,county_metadata_mat,county_shapefile,year)
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              BEGIN PROCESSING SECTION               %
@@ -18,7 +18,6 @@ function Process_County_Data_All_Years(county_populations_csv,county_populations
 
     % Loop over all of the counties to extract relevant metadata:
     for row = 1:size(Population_Table,1)
-   %  for row = 1
         Metadata(row,1).County_FIPS = Population_Table{row,'county_FIPS'}; % County FIPS
         Metadata(row,1).State = table2array(Population_Table{row,'state_name'}); % State String
         Metadata(row,1).County = table2array(Population_Table{row,'county_name'}); % County String
@@ -97,7 +96,7 @@ function Process_County_Data_All_Years(county_populations_csv,county_populations
     % Rename the two key variables and save the output:
     County_Metadata = Metadata; clear Metadata
     County_Metadata_Table = Metadata_Table; clear Metadata_Table
-    save(county_populations_mat,'County_Metadata','County_Metadata_Table');
+    save(county_metadata_mat,'County_Metadata','County_Metadata_Table');
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %               END PROCESSING SECTION                %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

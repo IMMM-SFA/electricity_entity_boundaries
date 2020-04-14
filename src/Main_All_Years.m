@@ -32,7 +32,7 @@ function Main_All_Years(ini_file)
     county_shapefile = ini.GetValues(in_data_section, 'county_shapefile');
 
     % output data variables
-    county_populations_mat = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/county_populations_',num2str(year),'.mat'];
+    county_metadata_mat = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/county_populations_',num2str(year),'.mat'];
     sales_ult_customer_mat = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/sales_ult_cust_',num2str(year),'.mat'];
     service_territory_mat = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/service_territory_',num2str(year),'.mat'];
     utility_data_mat = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/utility_data_',num2str(year),'.mat'];
@@ -53,14 +53,14 @@ function Main_All_Years(ini_file)
     if run_data_prep == 1
 
         % prepare county metadata mat file
-        Process_County_Data_All_Years(county_populations_csv,county_populations_mat,county_shapefile,year);
+        Process_County_Data_All_Years(county_populations_csv,county_metadata_mat,county_shapefile,year);
 
-%         % prepare sales by utility and customer mat file
-%         Preprocess_Sales_Util_Customer_Data(sales_ulil_customer_xlsx, sales_ult_customer_mat);
-% 
-%         % prepare service by territory mat file
-%         Preprocess_Service_Territory_Data(service_territory_xlsx, service_territory_mat, county_metadata_mat);
-% 
+        % prepare sales by utility and customer mat file
+        Preprocess_Sales_Ult_Customer_Data_All_Years(sales_ult_customer_xlsx,sales_ult_customer_mat,year);
+
+        % prepare service by territory mat file
+        Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,service_territory_mat,county_metadata_mat,year);
+
 %         % prepare utility data mat file
 %         Preprocess_Utility_Data(utility_data_xlsx, utility_data_mat);
 
