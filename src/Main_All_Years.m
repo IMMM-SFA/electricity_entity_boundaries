@@ -43,11 +43,11 @@ function Main_All_Years(ini_file)
     lat_max = ini.GetValues(figure_section, 'lat_max');
     lon_min = ini.GetValues(figure_section, 'lon_min');
     lon_max = ini.GetValues(figure_section, 'lon_max');
-    number_of_utilities_png = [ini.GetValues(out_data_section, 'output_figure_path'),num2str(year),'/Number_of_Utilities_',num2str(year),'.mat'];
-    
-    number_of_nerc_regions_png = [ini.GetValues(out_data_section, 'output_figure_path'),num2str(year),'/Number_of_NERC_Regions_',num2str(year),'.mat'];
-    number_of_bas_png = [ini.GetValues(out_data_section, 'output_figure_path'),num2str(year),'/Number_of_BAs_',num2str(year),'.mat'];
-    primary_ba_png = [ini.GetValues(out_data_section, 'output_figure_path'),num2str(year),'/Primary_BA_',num2str(year),'.mat'];
+    number_of_utilities_png = [ini.GetValues(out_data_section, 'output_figure_path'),num2str(year),'/Number_of_Utilities_',num2str(year),'.png'];
+    number_of_nerc_regions_png = [ini.GetValues(out_data_section, 'output_figure_path'),num2str(year),'/Number_of_NERC_Regions_',num2str(year),'.png'];
+    primary_nerc_region_png = [ini.GetValues(out_data_section, 'output_figure_path'),num2str(year),'/Primary_NERC_Region_',num2str(year),'.png'];
+    number_of_bas_png = [ini.GetValues(out_data_section, 'output_figure_path'),num2str(year),'/Number_of_BAs_',num2str(year),'.png'];
+    primary_ba_png = [ini.GetValues(out_data_section, 'output_figure_path'),num2str(year),'/Primary_BA_',num2str(year),'.png'];
 
     % run preprocessing of source data if user selected
     if run_data_prep == 1
@@ -67,10 +67,8 @@ function Main_All_Years(ini_file)
     % run main processing to generate output summary mat file
     Process_Entity_Relationships_All_Years(county_metadata_mat,sales_ult_customer_mat,service_territory_mat,utility_data_mat,output_summary_mat);
 
-%     % run plotting module
-%     if run_plots == 1
-% 
-%         Plot_Entity_Maps(output_summary_mat, number_of_utilities_png, number_of_nerc_regions_png, number_of_bas_png, primary_ba_png, lat_min, lat_max, lon_min, lon_max);
-% 
-%     end
+    % run plotting module
+    if run_plots == 1
+       Plot_Entity_Maps_All_Years(output_summary_mat,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_bas_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max);
+    end
 end
