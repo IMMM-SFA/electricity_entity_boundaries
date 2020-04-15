@@ -7,10 +7,6 @@
 % relationships between electircity entities, utilities, customers, and Balancing
 % authority areas.
 
-% warning off all; close all; clear all;
-% ini_file = '/Users/burl878/OneDrive - PNNL/Documents/Code/IMMM/Mapping/electricity_entity_boundaries/config.ini';
-% Main_All_Years(ini_file)
-
 function Main_All_Years(ini_file)
 
     % initialize configuration file
@@ -68,9 +64,9 @@ function Main_All_Years(ini_file)
         Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data_mat,year);
     end
 
-%     % run main processing to generate output summary mat file
-%     Process_Entity_Relationships(county_metadata_mat, sales_ult_customer_mat, service_territory_mat, utility_data_mat, output_summary_mat);
-% 
+    % run main processing to generate output summary mat file
+    Process_Entity_Relationships_All_Years(county_metadata_mat,sales_ult_customer_mat,service_territory_mat,utility_data_mat,output_summary_mat);
+
 %     % run plotting module
 %     if run_plots == 1
 % 

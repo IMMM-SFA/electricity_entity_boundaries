@@ -43,14 +43,14 @@ function Preprocess_Sales_Ult_Customer_Data_All_Years(sales_ult_customer_xlsx,sa
         Utility(row,1).State_FIPS = State_FIPS; % State FIPS
         Utility(row,1).State_String = State_String; % State String
         Utility(row,1).State_Abbreviation = Raw_Data{row,6}; % State Abbreviation
-        Utility(row,1).Total_2017_Sales = Raw_Data{row,9}; % Total sales to all customers in MWh
+        Utility(row,1).Total_Sales = Raw_Data{row,9}; % Total sales to all customers in MWh
 
         % Extract key variables into a table which is easier to search/filter:
         if isempty(Utility(row,1).Utility_Number) == 0;   Utility_Table(row,1) = Utility(row,1).Utility_Number;   else; Utility_Table(row,1) = NaN.*0; end
         if isempty(Utility(row,1).State_FIPS) == 0;       Utility_Table(row,2) = Utility(row,1).State_FIPS;       else; Utility_Table(row,2) = NaN.*0; end
         if isempty(Utility(row,1).BA_Code) == 0;          Utility_Table(row,3) = Utility(row,1).BA_Code;          else; Utility_Table(row,3) = NaN.*0; end
         if isempty(Utility(row,1).BA_Number) == 0;        Utility_Table(row,4) = Utility(row,1).BA_Number;        else; Utility_Table(row,4) = NaN.*0; end
-        if isempty(Utility(row,1).Total_2017_Sales) == 0; Utility_Table(row,5) = Utility(row,1).Total_2017_Sales; else; Utility_Table(row,5) = NaN.*0; end
+        if isempty(Utility(row,1).Total_Sales) == 0;      Utility_Table(row,5) = Utility(row,1).Total_Sales;      else; Utility_Table(row,5) = NaN.*0; end
 
         clear State_FIPS State_String BA_Code BA_Long_Name EIA_BA_Number
     end
