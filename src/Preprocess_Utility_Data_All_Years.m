@@ -12,7 +12,9 @@ function Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data_mat,ye
     %              BEGIN PROCESSING SECTION               %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
      % Define how many rows to read in based on the year being processed:
-    if year == 2017
+    if year == 2016
+       rows = 2277;
+    elseif year == 2017
        rows = 2287;
     elseif year == 2018
        rows = 2292;
@@ -36,6 +38,17 @@ function Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data_mat,ye
         if isempty(Raw_Data{row,5}) == 0
            NERC_Region_Short_Name = Raw_Data{row,5};
            % Catch a few errors:
+           if year == 2016 & row == 671
+              NERC_Region_Short_Name = 'SERC'; % Reason: Correcting for lack of capitalization
+           elseif year == 2016 & row == 757
+              NERC_Region_Short_Name = 'SERC'; % Reason: Two NERC regions were listed so use the first one given
+           elseif year == 2016 & row == 1015
+              NERC_Region_Short_Name = 'TRE'; % Reason: Two NERC regions were listed so use the first one given
+           elseif year == 2016 & row == 2190
+              NERC_Region_Short_Name = 'NPCC'; % Reason: Correcting for lack of capitalization
+           elseif year == 2016 & row == 2247
+              NERC_Region_Short_Name = 'WECC'; % Reason: Correcting for lack of capitalization
+           end
            if year == 2017 & row == 670
               NERC_Region_Short_Name = 'SERC'; % Reason: Correcting for lack of capitalization
            elseif year == 2017 & row == 755
@@ -93,6 +106,22 @@ function Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data_mat,ye
     % Manual assign the 'WAPA-- Western Area Power Administration' to be in the WECC. 
     % The specific line numbers vary by year which requires the manual fixes to be conditioned on the year
     % you're processing. This could be fixed, but I don't have time right now.
+    if year == 2016
+       [NERC_Region_Short_Name,NERC_Region_Long_Name] = NERC_Region_Information_From_NERC_Region_Code(8);
+       Utility(1921,1).NERC_Region_Code = 8;
+       Utility(1921,1).NERC_Region_Long_Name = NERC_Region_Long_Name;
+       Utility(1921,1).NERC_Region_Short_Name = NERC_Region_Short_Name;
+       Utility_Table(1921,3) = 8;
+       clear NERC_Region_Short_Name NERC_Region_Long_Name
+    end
+    if year == 2017
+       [NERC_Region_Short_Name,NERC_Region_Long_Name] = NERC_Region_Information_From_NERC_Region_Code(8);
+       Utility(1916,1).NERC_Region_Code = 8;
+       Utility(1916,1).NERC_Region_Long_Name = NERC_Region_Long_Name;
+       Utility(1916,1).NERC_Region_Short_Name = NERC_Region_Short_Name;
+       Utility_Table(1916,3) = 8;
+       clear NERC_Region_Short_Name NERC_Region_Long_Name
+    end
     if year == 2018
        [NERC_Region_Short_Name,NERC_Region_Long_Name] = NERC_Region_Information_From_NERC_Region_Code(8);
        Utility(1909,1).NERC_Region_Code = 8;

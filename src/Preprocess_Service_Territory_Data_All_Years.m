@@ -12,7 +12,9 @@ function Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,serv
     %              BEGIN PROCESSING SECTION               %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Define how many rows to read in based on the year being processed:
-    if year == 2017
+    if year == 2016
+       rows = 11953;
+    elseif year == 2017
        rows = 11828;
     elseif year == 2018
        rows = 11827;
@@ -22,7 +24,11 @@ function Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,serv
     load(county_metadata_mat);
 
     % Read the raw data from the spreadsheet into a cell structure:
-    [~,~,Raw_Data] = xlsread(service_territory_xlsx,'Counties_States',['B2:E',num2str(rows)]);
+    if year == 2016
+       [~,~,Raw_Data] = xlsread(service_territory_xlsx,'Counties',['B2:E',num2str(rows)]);
+    else
+       [~,~,Raw_Data] = xlsread(service_territory_xlsx,'Counties_States',['B2:E',num2str(rows)]);
+    end
     Raw_Data(cellfun(@(x) ~isempty(x) && isnumeric(x) && isnan(x),Raw_Data)) = {''};
 
     % Loop over all of the utilities to extract relevant metadata:

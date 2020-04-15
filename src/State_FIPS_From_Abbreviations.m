@@ -59,5 +59,10 @@ function [State_FIPS,State_String] = State_FIPS_From_State_Abbreviations(State_A
     if State_Abbreviation == 'WV'; State_FIPS = 54000; State_String = 'West Virginia'; end
     if State_Abbreviation == 'WI'; State_FIPS = 55000; State_String = 'Wisconsin'; end
     if State_Abbreviation == 'WY'; State_FIPS = 56000; State_String = 'Wyoming'; end
-    if State_Abbreviation == 'CN'; State_FIPS = -9999; State_String = 'Canada'; end % Canada; State FIPS set to missing
+    if State_Abbreviation == 'CN'; State_FIPS = -9999; State_String = 'Canada'; end % State FIPS set to missing
+    if State_Abbreviation == 'PR'; State_FIPS = -9999; State_String = 'Puerto Rico'; end % State FIPS set to missing
+    if State_Abbreviation == 'VI'; State_FIPS = -9999; State_String = 'U.S. Virgin Islands'; end % State FIPS set to missing
+    if State_Abbreviation == 'GU'; State_FIPS = -9999; State_String = 'Guam'; end % State FIPS set to missing
+    if State_Abbreviation == 'AS'; State_FIPS = -9999; State_String = 'American Samoa'; end % State FIPS set to missing
+    if State_Abbreviation == 'MP'; State_FIPS = -9999; State_String = 'Northern Marianas'; end % State FIPS set to missing
 end

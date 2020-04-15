@@ -64,11 +64,11 @@ function Main_All_Years(ini_file)
         Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data_mat,year);
     end
 
-    % run main processing to generate output summary mat file
-    Process_Entity_Relationships_All_Years(county_metadata_mat,sales_ult_customer_mat,service_territory_mat,utility_data_mat,output_summary_mat);
-
-    % run plotting module
-    if run_plots == 1
-       Plot_Entity_Maps_All_Years(output_summary_mat,year,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_bas_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max);
-    end
+%     % run main processing to generate output summary mat file
+%     Process_Entity_Relationships_All_Years(county_metadata_mat,sales_ult_customer_mat,service_territory_mat,utility_data_mat,output_summary_mat);
+% 
+%     % run plotting module
+%     if run_plots == 1
+%        Plot_Entity_Maps_All_Years(output_summary_mat,year,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_bas_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max);
+%     end
 end
