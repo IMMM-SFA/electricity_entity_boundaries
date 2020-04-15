@@ -2,6 +2,10 @@ U.S. Energy Information Agency (EIA) Annual Electric Power Industry Report, Form
 
 Source: https://www.eia.gov/electricity/data/eia861/
 
+2016 Data
+Accessed: 15-Apr 2020
+Filename: f8612016.zip
+
 2017 Data
 Accessed: 10-Apr 2020
 Filename: f8612017.zip

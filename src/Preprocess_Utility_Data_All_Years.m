@@ -12,7 +12,9 @@ function Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data_mat,ye
     %              BEGIN PROCESSING SECTION               %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
      % Define how many rows to read in based on the year being processed:
-    if year == 2018
+    if year == 2017
+       rows = 2287;
+    elseif year == 2018
        rows = 2292;
     end
     
@@ -33,7 +35,16 @@ function Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data_mat,ye
         % Look up NERC region information from the NERC abbreviation:
         if isempty(Raw_Data{row,5}) == 0
            NERC_Region_Short_Name = Raw_Data{row,5};
-           % Catch one error:
+           % Catch a few errors:
+           if year == 2017 & row == 670
+              NERC_Region_Short_Name = 'SERC'; % Reason: Correcting for lack of capitalization
+           elseif year == 2017 & row == 755
+              NERC_Region_Short_Name = 'SERC'; % Reason: Two NERC regions were listed so use the first one given
+           elseif year == 2017 & row == 1012
+              NERC_Region_Short_Name = 'TRE'; % Reason: Two NERC regions were listed so use the first one given
+           elseif year == 2017 & row == 2177
+              NERC_Region_Short_Name = 'NPCC'; % Reason: Correcting for lack of capitalization
+           end
            if year == 2018 & row == 1010
               NERC_Region_Short_Name = 'TRE'; % Reason: Two NERC regions were listed so use the first one given
            end

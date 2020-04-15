@@ -12,7 +12,9 @@ function Preprocess_Sales_Ult_Customer_Data_All_Years(sales_ult_customer_xlsx,sa
     %              BEGIN PROCESSING SECTION               %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Define how many rows to read in based on the year being processed:
-    if year == 2018
+    if year == 2017
+       rows = 3262;
+    elseif year == 2018
        rows = 3277;
     end
     

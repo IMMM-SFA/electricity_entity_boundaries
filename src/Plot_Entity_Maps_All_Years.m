@@ -6,7 +6,7 @@
 % Create and save maps of counties in the CONUS with their number of utilities,
 % number of BAs, primary BA, number of NERC regions, and primary NERC region.
 
-function Plot_Entity_Maps_All_Years(output_summary_mat,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_ba_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max)
+function Plot_Entity_Maps_All_Years(output_summary_mat,year,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_ba_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max)
 
     % Choose whether or not to save the figures generated (1 = yes):
     save_images = 1;
@@ -76,7 +76,7 @@ function Plot_Entity_Maps_All_Years(output_summary_mat,number_of_utilities_png,n
     set(gca,'clim',[1,16]);
     colo1 = colorbar('ytick',[1:1:16]);
     tightmap; framem on; gridm off; mlabel off; plabel off; set(gca,'LineWidth',3,'FontSize',21,'Box','on','Layer','top');
-    title(['Number of Utilities'],'FontSize',27);
+    title(['Number of Utilities - ',num2str(year)],'FontSize',27);
     if save_images == 1
        set(gcf,'Renderer','zbuffer'); set(gcf,'PaperPositionMode','auto');
        print(a,'-dpng','-r295',number_of_utilities_png);
@@ -104,7 +104,7 @@ function Plot_Entity_Maps_All_Years(output_summary_mat,number_of_utilities_png,n
     set(gca,'clim',[1,10]);
     colo1 = colorbar('ytick',[1:1:10]);
     tightmap; framem on; gridm off; mlabel off; plabel off; set(gca,'LineWidth',3,'FontSize',21,'Box','on','Layer','top');
-    title(['Number of NERC Regions'],'FontSize',27);
+    title(['Number of NERC Regions - ',num2str(year)],'FontSize',27);
     if save_images == 1
        set(gcf,'Renderer','zbuffer'); set(gcf,'PaperPositionMode','auto');
        print(a,'-dpng','-r295',number_of_nerc_regions_png);
@@ -133,7 +133,7 @@ function Plot_Entity_Maps_All_Years(output_summary_mat,number_of_utilities_png,n
     set(gca,'clim',[1,size(Unique_NERC_Region_Label_Strings,2)+1]);
     colo1 = colorbar('ytick',[1.5:1:(size(Unique_NERC_Region_Label_Strings,2)+0.5)],'YTickLabel',Unique_NERC_Region_Label_Strings);
     tightmap; framem on; gridm off; mlabel off; plabel off; set(gca,'LineWidth',3,'FontSize',21,'Box','on','Layer','top');
-    title(['Primary NERC Region'],'FontSize',27);
+    title(['Primary NERC Region - ',num2str(year)],'FontSize',27);
     if save_images == 1
        set(gcf,'Renderer','zbuffer'); set(gcf,'PaperPositionMode','auto');
        print(a,'-dpng','-r295',primary_nerc_region_png);
@@ -161,7 +161,7 @@ function Plot_Entity_Maps_All_Years(output_summary_mat,number_of_utilities_png,n
     set(gca,'clim',[1,10]);
     colo1 = colorbar('ytick',[1:1:10]);
     tightmap; framem on; gridm off; mlabel off; plabel off; set(gca,'LineWidth',3,'FontSize',21,'Box','on','Layer','top');
-    title(['Number of Balancing Authorities'],'FontSize',27);
+    title(['Number of Balancing Authorities - ',num2str(year)],'FontSize',27);
     if save_images == 1
        set(gcf,'Renderer','zbuffer'); set(gcf,'PaperPositionMode','auto');
        print(a,'-dpng','-r295',number_of_ba_png);
@@ -189,7 +189,7 @@ function Plot_Entity_Maps_All_Years(output_summary_mat,number_of_utilities_png,n
     set(gca,'clim',[1,size(Unique_BA_Label_Strings,2)+1]);
     colo1 = colorbar('ytick',[1.5:1:(size(Unique_BA_Label_Strings,2)+0.5)],'YTickLabel',Unique_BA_Label_Strings);
     tightmap; framem on; gridm off; mlabel off; plabel off; set(gca,'LineWidth',3,'FontSize',21,'Box','on','Layer','top');
-    title(['Primary Balancing Authority'],'FontSize',27);
+    title(['Primary Balancing Authority - ',num2str(year)],'FontSize',27);
     if save_images == 1
        set(gcf,'Renderer','zbuffer'); set(gcf,'PaperPositionMode','auto');
        print(a,'-dpng','-r295',primary_ba_png);
