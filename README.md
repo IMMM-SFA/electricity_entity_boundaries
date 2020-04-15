@@ -1,5 +1,5 @@
 # electricity_entity_boundaries
-Nested boundaries for electricity entities (e.g., counties, utilities, balancing authority areas, NERC regions, and subregions) including workflow processing for automated mapping. This repository contains a generic version of the code that works for the 2017 and 2018 versions of the EIA-861 dataset. Input files, including the raw versions of the EIA-861 datasets, are included in this repository.
+Nested boundaries for electricity entities (e.g., counties, utilities, balancing authority areas, NERC regions, and subregions) including workflow processing for automated mapping. This repository contains a generic version of the code that works for the 2016-2018 versions of the EIA-861 dataset. Input files, including the raw versions of the EIA-861 datasets, are included in this repository.
 
 ## Contact
 Casey Burleyson, PNNL,
@@ -8,7 +8,7 @@ casey.burleyson@pnnl.gov
 ## Setting-up and Executing the Code
 1. Clone this repository using `git clone https://github.com/IMMM-SFA/electricity_entity_boundaries.git`
 
-2. Set-up the `config.ini` file found in the root of this repository.  Be sure to adjust the paths of each file to represent where the downloaded input data is stored and where you want the output data to be saved to.
+2. Set-up the `config.ini` file found in the root of this repository. Be sure to adjust the paths of each file to represent where the downloaded input data is stored and where you want the output data to be saved to.
 
 3. To run code from terminal or command line:
     - Navigate to the `src` directory in this repository
@@ -26,7 +26,6 @@ The base resource for this mapping is the EIA-861 annual report on the electric 
 1. Annual Electric Power Industry Report: Form [EIA-861](https://www.eia.gov/electricity/data/eia861/) Detailed Data Files
     * _Raw_Source_: [https://www.eia.gov/electricity/data/eia861/]
     * _Purpose_: Contains all of the detailed files described below
-    * _Accessed_: 10-April 2020
 
 2. Sales to Ultimate Customers
     * _Source_: `Sales_Ult_Cust_YYYY.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
@@ -71,13 +70,13 @@ The base resource for this mapping is the EIA-861 annual report on the electric 
     *	Required Functions:
         *	`State_FIPS_From_State_Abbreviations.m`
 
-5.	Merge all of the above datasets by mapping utilities to BAs to NERC regions and eventually to counties in the U.S. The output data file is a structure with each row being a county and then embedded in the structure for that row is all of the utilities operating in that county and their associated BA and NERC region. In counties with more than one BA or NERC region listed, which happens quite often, the county is assigned to the utility with the highest total sales of electricity in 2017. The full output is given in a Matlab file (`Utility_to_BA_to_NERC_Region_to_County_Mapping.mat`).
+5.	Merge all of the above datasets by mapping utilities to BAs to NERC regions and eventually to counties in the U.S. The output data file is a structure with each row being a county and then embedded in the structure for that row is all of the utilities operating in that county and their associated BA and NERC region. In counties with more than one BA or NERC region listed, which happens quite often, the county is assigned to the utility with the highest total sales of electricity. The full output is stored in a Matlab file (`electricity_entity_boundaries_YYYY.mat`).
     *	Scripts:
-        *	`Process_Entity_Relationships.m`
+        *	`Process_Entity_Relationships_All_Years.m`
 
 6.	Create and save maps of counties in the CONUS with their number of utilities, number of BAs, primary BA, number of NERC regions, and primary NERC region.
     *	Scripts:
-        *	`Plot_Entity_Maps.m`
+        *	`Plot_Entity_Maps_All_Years.m`
     *	Required Functions:
         *	`BA_Information_From_BA_Code.m`
         *	`NERC_Region_Information_From_NERC_Region_Code.m`

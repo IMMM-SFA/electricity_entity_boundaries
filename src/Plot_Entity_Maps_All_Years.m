@@ -64,8 +64,8 @@ function Plot_Entity_Maps_All_Years(output_summary_mat,year,number_of_utilities_
     states = shaperead('usastatelo','UseGeoCoords',true,'Selector',{@(name)~any(strcmp(name,{'Alaska','Hawaii'})),'Name'});
     faceColors = makesymbolspec('Polygon',{'INDEX',[1 numel(states)],'FaceColor',polcmap(numel(states))}); faceColors.FaceColor{1,3} = faceColors.FaceColor{1,3}./faceColors.FaceColor{1,3};
     geoshow(ax1,states,'DisplayType','polygon','SymbolSpec',faceColors,'LineWidth',1,'LineStyle','-');
-    % for i = 1:size(County_Metadata,1)
-    for i = 1:100
+    for i = 1:size(County_Metadata,1)
+    % for i = 1:100
         if isnan(County_Metadata_Table(i,7)) == 0
            patchm(County_Metadata(i,1).Latitude_Vector,County_Metadata(i,1).Longitude_Vector,0,'FaceVertexCData',County_Metadata_Table(i,7),'FaceColor','flat');
         else
@@ -92,8 +92,8 @@ function Plot_Entity_Maps_All_Years(output_summary_mat,year,number_of_utilities_
     states = shaperead('usastatelo','UseGeoCoords',true,'Selector',{@(name)~any(strcmp(name,{'Alaska','Hawaii'})),'Name'});
     faceColors = makesymbolspec('Polygon',{'INDEX',[1 numel(states)],'FaceColor',polcmap(numel(states))}); faceColors.FaceColor{1,3} = faceColors.FaceColor{1,3}./faceColors.FaceColor{1,3};
     geoshow(ax1,states,'DisplayType','polygon','SymbolSpec',faceColors,'LineWidth',1,'LineStyle','-');
-    % for i = 1:size(County_Metadata,1)
-    for i = 1:100
+    for i = 1:size(County_Metadata,1)
+    % for i = 1:100
         if isnan(County_Metadata_Table(i,10)) == 0
            patchm(County_Metadata(i,1).Latitude_Vector,County_Metadata(i,1).Longitude_Vector,0,'FaceVertexCData',County_Metadata_Table(i,10),'FaceColor','flat');
         else
@@ -120,8 +120,8 @@ function Plot_Entity_Maps_All_Years(output_summary_mat,year,number_of_utilities_
     states = shaperead('usastatelo','UseGeoCoords',true,'Selector',{@(name)~any(strcmp(name,{'Alaska','Hawaii'})),'Name'});
     faceColors = makesymbolspec('Polygon',{'INDEX',[1 numel(states)],'FaceColor',polcmap(numel(states))}); faceColors.FaceColor{1,3} = faceColors.FaceColor{1,3}./faceColors.FaceColor{1,3};
     geoshow(ax1,states,'DisplayType','polygon','SymbolSpec',faceColors,'LineWidth',1,'LineStyle','-');
-    % for i = 1:size(County_Metadata,1)
-    for i = 1:100
+    for i = 1:size(County_Metadata,1)
+    % for i = 1:100
         if isnan(County_Metadata_Table(i,13)) == 0
            patchm(County_Metadata(i,1).Latitude_Vector,County_Metadata(i,1).Longitude_Vector,0,'FaceVertexCData',County_Metadata_Table(i,13),'FaceColor','flat');
         else
@@ -149,8 +149,8 @@ function Plot_Entity_Maps_All_Years(output_summary_mat,year,number_of_utilities_
     states = shaperead('usastatelo','UseGeoCoords',true,'Selector',{@(name)~any(strcmp(name,{'Alaska','Hawaii'})),'Name'});
     faceColors = makesymbolspec('Polygon',{'INDEX',[1 numel(states)],'FaceColor',polcmap(numel(states))}); faceColors.FaceColor{1,3} = faceColors.FaceColor{1,3}./faceColors.FaceColor{1,3};
     geoshow(ax1,states,'DisplayType','polygon','SymbolSpec',faceColors,'LineWidth',1,'LineStyle','-');
-    % for i = 1:size(County_Metadata,1)
-    for i = 1:100
+    for i = 1:size(County_Metadata,1)
+    % for i = 1:100
         if isnan(County_Metadata_Table(i,8)) == 0
            patchm(County_Metadata(i,1).Latitude_Vector,County_Metadata(i,1).Longitude_Vector,0,'FaceVertexCData',County_Metadata_Table(i,8),'FaceColor','flat');
         else
@@ -177,8 +177,8 @@ function Plot_Entity_Maps_All_Years(output_summary_mat,year,number_of_utilities_
     states = shaperead('usastatelo','UseGeoCoords',true,'Selector',{@(name)~any(strcmp(name,{'Alaska','Hawaii'})),'Name'});
     faceColors = makesymbolspec('Polygon',{'INDEX',[1 numel(states)],'FaceColor',polcmap(numel(states))}); faceColors.FaceColor{1,3} = faceColors.FaceColor{1,3}./faceColors.FaceColor{1,3};
     geoshow(ax1,states,'DisplayType','polygon','SymbolSpec',faceColors,'LineWidth',1,'LineStyle','-');
-    % for i = 1:size(County_Metadata,1)
-    for i = 1:100
+    for i = 1:size(County_Metadata,1)
+    % for i = 1:100
         if isnan(County_Metadata_Table(i,12)) == 0
            patchm(County_Metadata(i,1).Latitude_Vector,County_Metadata(i,1).Longitude_Vector,0,'FaceVertexCData',County_Metadata_Table(i,12),'FaceColor','flat');
         else
