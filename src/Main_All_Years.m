@@ -7,6 +7,10 @@
 % relationships between electircity entities, utilities, customers, and Balancing
 % authority areas.
 
+% warning off all; close all; clear all;
+% ini_file = '/Users/burl878/OneDrive - PNNL/Documents/Code/IMMM/Mapping/electricity_entity_boundaries/config.ini';
+% Main_All_Years(ini_file);
+
 function Main_All_Years(ini_file)
 
     % initialize configuration file
