@@ -55,7 +55,7 @@ function Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,serv
     % Loop over all of the utilities match the county listed to a county from the "County_Metadata" structure:
     for row = 1:size(Territory,1)
         % Try to string match the county and state to a matched pair from the "County_Metadata" structure:
-        if isempty(Territory(row,1).State_FIPS) == 0 & isempty(Territory(row,1).County) == 0
+        if isempty(Territory(row,1).State_FIPS) == 0 & isempty(Territory(row,1).County) == 0 & Territory(row,1).State_FIPS ~= -9999
            State_Table = County_Metadata_Table(find(County_Metadata_Table(:,2) == Territory(row,1).State_FIPS),:);
            State = County_Metadata(find(County_Metadata_Table(:,2) == Territory(row,1).State_FIPS),:);
            County = Territory(row,1).County;
@@ -75,6 +75,8 @@ function Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,serv
            end
            clear i State_Table State County
         else
+           Territory(row,1).County_Name = 'Territory';
+           Territory(row,1).County_FIPS = -9999;
            Territory_Table(row,3) = NaN.*0;
         end
     end
@@ -87,8 +89,266 @@ function Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,serv
     % corrected manually. The reason for each correction is appended as a
     % comment on the end of each line. The specific line numbers vary by
     % year which requires the manual fixes to be conditioned on the year
-    % you're processing. This could be fixed, but I don't have time right
-    % now.
+    % you're processing. This could be likely be fixed with some clever
+    % programming, but I don't have time right now.
+    if year == 2016
+    Territory(105,1).County_Name = 'St. Clair County'; Territory(105,1).County_FIPS = 1117; Territory_Table(105,3) = 1117; % String mismatch
+    Territory(120,1).County_Name = 'Prince of Wales-Hyder Census Area'; Territory(120,1).County_FIPS = 2201; Territory_Table(120,3) = 2201; % String mismatch
+    Territory(121,1).County_Name = 'Skagway Municipality'; Territory(121,1).County_FIPS = 2232; Territory_Table(121,3) = 2232; % String mismatch
+    Territory(122,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(122,1).County_FIPS = 2290; Territory_Table(122,3) = 2290; % String mismatch
+    Territory(129,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(129,1).County_FIPS = 2290; Territory_Table(129,3) = 2290; % String mismatch
+    Territory(242,1).County_Name = 'Bedford County'; Territory(242,1).County_FIPS = 51019; Territory_Table(242,3) = 51019; % String mismatch
+    Territory(253,1).County_Name = 'Franklin County'; Territory(253,1).County_FIPS = 51067; Territory_Table(253,3) = 51067; % String mismatch
+    Territory(254,1).County_Name = 'Carroll County'; Territory(254,1).County_FIPS = 51035; Territory_Table(254,3) = 51035; % https://en.wikipedia.org/wiki/Galax,_Virginia
+    Territory(258,1).County_Name = 'Lynchburg City'; Territory(258,1).County_FIPS = 51680; Territory_Table(258,3) = 51680; % String mismatch
+    Territory(264,1).County_Name = 'Roanoke County'; Territory(264,1).County_FIPS = 51161; Territory_Table(264,3) = 51161; % String mismatch
+    Territory(265,1).County_Name = 'Roanoke City'; Territory(265,1).County_FIPS = 51770; Territory_Table(265,3) = 51770; % String mismatch
+    Territory(374,1).County_Name = 'St. Francis County'; Territory(374,1).County_FIPS = 5123; Territory_Table(374,3) = 5123; % String mismatch
+    Territory(403,1).County_Name = 'Lake County'; Territory(403,1).County_FIPS = 27075; Territory_Table(403,3) = 27075; % String mismatch
+    Territory(465,1).County_Name = 'Baltimore City'; Territory(465,1).County_FIPS = 24510; Territory_Table(465,3) = 24510; % String mismatch
+    Territory(471,1).County_Name = 'Prince Georges County'; Territory(471,1).County_FIPS = 24033; Territory_Table(471,3) = 24033; % String mismatch
+    Territory(560,1).County_Name = 'Bedford County'; Territory(560,1).County_FIPS = 51019; Territory_Table(560,3) = 51019; % String mismatch
+    Territory(649,1).County_Name = 'Valdez-Cordova Census Area'; Territory(649,1).County_FIPS = 2261; Territory_Table(649,3) = 2261; % String mismatch
+    Territory(650,1).County_Name = 'St. Louis County'; Territory(650,1).County_FIPS = 27137; Territory_Table(650,3) = 27137; % String mismatch
+    Territory(826,1).County_Name = 'Bristol City'; Territory(826,1).County_FIPS = 51520; Territory_Table(826,3) = 51520; % String mismatch
+    Territory(831,1).County_Name = 'Green County'; Territory(831,1).County_FIPS = 55045; Territory_Table(831,3) = 55045; % String mismatch
+    Territory(871,1).County_Name = 'St. Louis County'; Territory(871,1).County_FIPS = 27137; Territory_Table(871,3) = 27137; % String mismatch
+    Territory(1022,1).County_Name = 'White County'; Territory(1022,1).County_FIPS = 17193; Territory_Table(1022,3) = 17193; % String mismatch
+    Territory(1229,1).County_Name = 'De Soto Parish'; Territory(1229,1).County_FIPS = 22031; Territory_Table(1229,3) = 22031; % String mismatch
+    Territory(1240,1).County_Name = 'St. Landry Parish'; Territory(1240,1).County_FIPS = 22097; Territory_Table(1240,3) = 22097; % String mismatch
+    Territory(1241,1).County_Name = 'St. Martin Parish'; Territory(1241,1).County_FIPS = 22099; Territory_Table(1241,3) = 22099; % String mismatch
+    Territory(1242,1).County_Name = 'St. Mary Parish'; Territory(1242,1).County_FIPS = 22101; Territory_Table(1242,3) = 22101; % String mismatch
+    Territory(1243,1).County_Name = 'St. Tammany Parish'; Territory(1243,1).County_FIPS = 22103; Territory_Table(1243,3) = 22103; % String mismatch
+    Territory(1392,1).County_Name = 'Wrangell City and Borough'; Territory(1392,1).County_FIPS = 2280; Territory_Table(1392,3) = 2280; % String mismatch
+    Territory(1417,1).County_Name = 'Valdez-Cordova Census Area'; Territory(1417,1).County_FIPS = 2261; Territory_Table(1417,3) = 2261; % String mismatch
+    Territory(1452,1).County_Name = 'Queen Annes County'; Territory(1452,1).County_FIPS = 24035; Territory_Table(1452,3) = 24035; % String mismatch
+    Territory(1482,1).County_Name = 'St. Francois County'; Territory(1482,1).County_FIPS = 29187; Territory_Table(1482,3) = 29187; % String mismatch
+    Territory(1483,1).County_Name = 'Ste. Genevieve County'; Territory(1483,1).County_FIPS = 29186; Territory_Table(1483,3) = 29186; % String mismatch
+    Territory(1596,1).County_Name = 'St. Clair County'; Territory(1596,1).County_FIPS = 17163; Territory_Table(1596,3) = 17163; % String mismatch
+    Territory(1745,1).County_Name = 'Will County'; Territory(1745,1).County_FIPS = 17197; Territory_Table(1745,3) = 17197; % String mismatch
+    Territory(1750,1).County_Name = 'Suffolk City'; Territory(1750,1).County_FIPS = 51800; Territory_Table(1750,3) = 51800; % String mismatch
+    Territory(1858,1).County_Name = 'St. Joseph County'; Territory(1858,1).County_FIPS = 26149; Territory_Table(1858,3) = 26149; % String mismatch
+    Territory(1901,1).County_Name = 'St. Clair County'; Territory(1901,1).County_FIPS = 1117; Territory_Table(1901,3) = 1117; % String mismatch
+    Territory(1903,1).County_Name = 'Valdez-Cordova Census Area'; Territory(1903,1).County_FIPS = 2261; Territory_Table(1903,3) = 2261; % String mismatch
+    Territory(1907,1).County_Name = 'Lake County'; Territory(1907,1).County_FIPS = 27075; Territory_Table(1907,3) = 27075; % String mismatch
+    Territory(1908,1).County_Name = 'St. Louis County'; Territory(1908,1).County_FIPS = 27137; Territory_Table(1908,3) = 27137; % String mismatch
+    Territory(1912,1).County_Name = 'De Witt County'; Territory(1912,1).County_FIPS = 17039; Territory_Table(1912,3) = 17039; % String mismatch
+    Territory(1974,1).County_Name = 'Roanoke County'; Territory(1974,1).County_FIPS = 51161; Territory_Table(1974,3) = 51161; % String mismatch
+    Territory(2062,1).County_Name = 'St. Charles County'; Territory(2062,1).County_FIPS = 29183; Territory_Table(2062,3) = 29183; % String mismatch
+    Territory(2110,1).County_Name = 'Danville City'; Territory(2110,1).County_FIPS = 51590; Territory_Table(2110,3) = 51590; % String mismatch
+    Territory(2194,1).County_Name = 'Queen Annes County'; Territory(2194,1).County_FIPS = 24035; Territory_Table(2194,3) = 24035; % String mismatch
+    Territory(2206,1).County_Name = 'Collin County'; Territory(2206).County_FIPS = 48085; Territory_Table(2206,3) = 48085; % String mismatch
+    Territory(2235,1).County_Name = 'St. Clair County'; Territory(2235,1).County_FIPS = 26147; Territory_Table(2235,3) = 26147; % String mismatch
+    Territory(2258,1).County_Name = 'St. Helena Parish'; Territory(2258,1).County_FIPS = 22091; Territory_Table(2258,3) = 22091; % String mismatch
+    Territory(2361,1).County_Name = 'Chester County'; Territory(2361,1).County_FIPS = 45023; Territory_Table(2361,3) = 45023; % String mismatch
+    Territory(2382,1).County_Name = 'St. Croix County'; Territory(2382,1).County_FIPS = 55109; Territory_Table(2382,3) = 55109; % String mismatch
+    Territory(2410,1).County_Name = 'St. Clair County'; Territory(2410,1).County_FIPS = 17163; Territory_Table(2410,3) = 17163; % String mismatch
+    Territory(2466,1).County_Name = 'Green County'; Territory(2466,1).County_FIPS = 21087; Territory_Table(2466,3) = 21087; % String mismatch
+    Territory(2608,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(2608,1).County_FIPS = 2290; Territory_Table(2608,3) = 2290; % String mismatch
+    Territory(2649,1).County_Name = 'St. Louis County'; Territory(2649,1).County_FIPS = 27137; Territory_Table(2649,3) = 27137; % String mismatch
+    Territory(2668,1).County_Name = 'St. Clair County'; Territory(2668,1).County_FIPS = 29185; Territory_Table(2668,3) = 29185; % String mismatch
+    Territory(2692,1).County_Name = 'Chester County'; Territory(2692,1).County_FIPS = 45023; Territory_Table(2692,3) = 45023; % String mismatch
+    Territory(2714,1).County_Name = 'Green County'; Territory(2714,1).County_FIPS = 55045; Territory_Table(2714,3) = 55045; % String mismatch
+    Territory(2750,1).County_Name = 'Collin County'; Territory(2750,1).County_FIPS = 48085; Territory_Table(2750,3) = 48085; % String mismatch
+    Territory(2766,1).County_Name = 'Collin County'; Territory(2766,1).County_FIPS = 48085; Territory_Table(2766,3) = 48085; % String mismatch
+    Territory(2786,1).County_Name = 'De Witt County'; Territory(2786,1).County_FIPS = 17039; Territory_Table(2786,3) = 17039; % String mismatch
+    Territory(2791,1).County_Name = 'Green County'; Territory(2791,1).County_FIPS = 21087; Territory_Table(2791,3) = 21087; % String mismatch
+    Territory(2805,1).County_Name = 'Collin County'; Territory(2805,1).County_FIPS = 48085; Territory_Table(2805,3) = 48085; % String mismatch
+    Territory(2808,1).County_Name = 'St. Francois County'; Territory(2808,1).County_FIPS = 29187; Territory_Table(2808,3) = 29187; % String mismatch
+    Territory(2939,1).County_Name = 'Miami-Dade County'; Territory(2939,1).County_FIPS = 12086; Territory_Table(2939,3) = 12086; % String mismatch
+    Territory(2949,1).County_Name = 'St. Johns County'; Territory(2949,1).County_FIPS = 12109; Territory_Table(2949,3) = 12109; % String mismatch
+    Territory(2950,1).County_Name = 'St. Lucie County'; Territory(2950,1).County_FIPS = 12111; Territory_Table(2950,3) = 12111; % String mismatch
+    Territory(3008,1).County_Name = 'Jack County'; Territory(3008,1).County_FIPS = 48237; Territory_Table(3008,3) = 48237; % String mismatch
+    Territory(3017,1).County_Name = 'St. Lucie County'; Territory(3017,1).County_FIPS = 12111; Territory_Table(3017,3) = 12111; % String mismatch
+    Territory(3046,1).County_Name = 'Franklin City'; Territory(3046,1).County_FIPS = 51620; Territory_Table(3046,3) = 51620; % String mismatch
+    Territory(3049,1).County_Name = 'Suffolk City'; Territory(3049,1).County_FIPS = 51800; Territory_Table(3049,3) = 51800; % String mismatch
+    Territory(3069,1).County_Name = 'St. Clair County'; Territory(3069,1).County_FIPS = 17163; Territory_Table(3069,3) = 17163; % String mismatch
+    Territory(3113,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(3113,1).County_FIPS = 2290; Territory_Table(3113,3) = 2290; % String mismatch
+    Territory(3186,1).County_Name = 'Clay County'; Territory(3186,1).County_FIPS = 13061; Territory_Table(3186,3) = 13061; % String mismatch
+    Territory(3324,1).County_Name = 'St. Louis County'; Territory(3324,1).County_FIPS = 27137; Territory_Table(3324,3) = 27137; % String mismatch
+    Territory(3366,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(3366,1).County_FIPS = 2290; Territory_Table(3366,3) = 2290; % String mismatch
+    Territory(3428,1).County_Name = 'Collin County'; Territory(3428,1).County_FIPS = 48085; Territory_Table(3428,3) = 48085; % String mismatch
+    Territory(3436,1).County_Name = 'Gray County'; Territory(3436,1).County_FIPS = 48179; Territory_Table(3436,3) = 48179; % String mismatch
+    Territory(3439,1).County_Name = 'Roberts County'; Territory(3439,1).County_FIPS = 48393; Territory_Table(3439,3) = 48393; % String mismatch
+    Territory(3541,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(3541,1).County_FIPS = 2290; Territory_Table(3541,3) = 2290; % String mismatch
+    Territory(3720,1).County_Name = 'St. Louis County'; Territory(3720,1).County_FIPS = 27137; Territory_Table(3720,3) = 27137; % String mismatch
+    Territory(3749,1).County_Name = 'St. Clair County'; Territory(3749,1).County_FIPS = 17163; Territory_Table(3749,3) = 17163; % String mismatch
+    Territory(3819,1).County_Name = 'Miami-Dade County'; Territory(3819,1).County_FIPS = 12086; Territory_Table(3819,3) = 12086; % String mismatch
+    Territory(3857,1).County_Name = 'Harris County'; Territory(3857,1).County_FIPS = 48201; Territory_Table(3857,3) = 48201; % String mismatch
+    Territory(3881,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(3881,1).County_FIPS = 2290; Territory_Table(3881,3) = 2290; % String mismatch
+    Territory(3900,1).County_Name = 'Ada County'; Territory(3900,1).County_FIPS = 16001; Territory_Table(3900,3) = 16001; % String mismatch
+    Territory(3929,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(3929,1).County_FIPS = 2290; Territory_Table(3929,3) = 2290; % String mismatch
+    Territory(4006,1).County_Name = 'St. Joseph County'; Territory(4006,1).County_FIPS = 18141; Territory_Table(4006,3) = 18141; % String mismatch
+    Territory(4016,1).County_Name = 'St. Joseph County'; Territory(4016,1).County_FIPS = 26149; Territory_Table(4016,3) = 26149; % String mismatch
+    Territory(4057,1).County_Name = 'Clay County'; Territory(4057,1).County_FIPS = 19041; Territory_Table(4057,3) = 19041; % String mismatch
+    Territory(4126,1).County_Name = 'Jack County'; Territory(4126,1).County_FIPS = 48237; Territory_Table(4126,3) = 48237; % String mismatch
+    Territory(4130,1).County_Name = 'Clay County'; Territory(4130,1).County_FIPS = 19041; Territory_Table(4130,3) = 19041; % String mismatch
+    Territory(4216,1).County_Name = 'St. Johns County'; Territory(4216,1).County_FIPS = 12109; Territory_Table(4216,3) = 12109; % String mismatch
+    Territory(4220,1).County_Name = 'St. Johns County'; Territory(4220,1).County_FIPS = 12109; Territory_Table(4220,3) = 12109; % String mismatch
+    Territory(4344,1).County_Name = 'St. Joseph County'; Territory(4344,1).County_FIPS = 18141; Territory_Table(4344,3) = 18141; % String mismatch
+    Territory(4478,1).County_Name = 'Green County'; Territory(4478,1).County_FIPS = 21087; Territory_Table(4478,3) = 21087; % String mismatch
+    Territory(4528,1).County_Name = 'Norton City'; Territory(4528,1).County_FIPS = 51720; Territory_Table(4528,3) = 51720; % String mismatch
+    Territory(4559,1).County_Name = 'St. Louis City'; Territory(4559,1).County_FIPS = 29510; Territory_Table(4559,3) = 29510; % String mismatch
+    Territory(4712,1).County_Name = 'Lake County'; Territory(4712,1).County_FIPS = 27075; Territory_Table(4712,3) = 27075; % String mismatch
+    Territory(4714,1).County_Name = 'St. Louis County'; Territory(4714,1).County_FIPS = 27137; Territory_Table(4714,3) = 27137; % String mismatch
+    Territory(4854,1).County_Name = 'Chester County'; Territory(4854,1).County_FIPS = 45023; Territory_Table(4854,3) = 45023; % String mismatch
+    Territory(4916,1).County_Name = 'Jefferson Parish'; Territory(4916,1).County_FIPS = 22051; Territory_Table(4916,3) = 22051; % String mismatch
+    Territory(4933,1).County_Name = 'St. Helena Parish'; Territory(4933,1).County_FIPS = 22091; Territory_Table(4933,3) = 22091; % String mismatch
+    Territory(4934,1).County_Name = 'St. Bernard Parish'; Territory(4934,1).County_FIPS = 22087; Territory_Table(4934,3) = 22087; % String mismatch
+    Territory(4935,1).County_Name = 'St. Charles Parish'; Territory(4935,1).County_FIPS = 22089; Territory_Table(4935,3) = 22089; % String mismatch
+    Territory(4936,1).County_Name = 'St. James Parish'; Territory(4936,1).County_FIPS = 22093; Territory_Table(4936,3) = 22093; % String mismatch
+    Territory(4937,1).County_Name = 'St. John the Baptist Parish'; Territory(4937,1).County_FIPS = 22095; Territory_Table(4937,3) = 22095; % String mismatch
+    Territory(4938,1).County_Name = 'St. Landry Parish'; Territory(4938,1).County_FIPS = 22097; Territory_Table(4938,3) = 22097; % String mismatch
+    Territory(4939,1).County_Name = 'St. Martin Parish'; Territory(4939,1).County_FIPS = 22099; Territory_Table(4939,3) = 22099; % String mismatch
+    Territory(4940,1).County_Name = 'St. Tammany Parish'; Territory(4940,1).County_FIPS = 22103; Territory_Table(4940,3) = 22103; % String mismatch
+    Territory(5075,1).County_Name = 'Manassas City'; Territory(5075,1).County_FIPS = 51683; Territory_Table(5075,3) = 51683; % String mismatch
+    Territory(5124,1).County_Name = 'St. Joseph County'; Territory(5124,1).County_FIPS = 18141; Territory_Table(5124,3) = 18141; % String mismatch
+    Territory(5127,1).County_Name = 'Martinsville City'; Territory(5127,1).County_FIPS = 51690; Territory_Table(5127,3) = 51690; % String mismatch
+    Territory(5134,1).County_Name = 'St. Clair County'; Territory(5134,1).County_FIPS = 17163; Territory_Table(5134,3) = 17163; % String mismatch
+    Territory(5147,1).County_Name = 'St. Lawrence County'; Territory(5147,1).County_FIPS = 36089; Territory_Table(5147,3) = 36089; % String mismatch
+    Territory(5149,1).County_Name = 'Matanuska-Susitna Borough'; Territory(5149,1).County_FIPS = 02170; Territory_Table(5149,3) = 02170; % String mismatch
+    Territory(5194,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(5194,1).County_FIPS = 2290; Territory_Table(5194,3) = 2290; % String mismatch
+    Territory(5268,1).County_Name = 'Charlotte County'; Territory(5268,1).County_FIPS = 51037; Territory_Table(5268,3) = 51037; % String mismatch
+    Territory(5386,1).County_Name = 'St. Joseph County'; Territory(5386,1).County_FIPS = 18141; Territory_Table(5386,3) = 18141; % String mismatch
+    Territory(5392,1).County_Name = 'St. Joseph County'; Territory(5392,1).County_FIPS = 26149; Territory_Table(5392,3) = 26149; % String mismatch
+    Territory(5396,1).County_Name = 'Prince of Wales-Hyder Census Area'; Territory(5396,1).County_FIPS = 2201; Territory_Table(5396,3) = 2201; % String mismatch
+    Territory(5568,1).County_Name = 'Lake County'; Territory(5568,1).County_FIPS = 27075; Territory_Table(5568,3) = 27075; % String mismatch
+    Territory(5572,1).County_Name = 'St. Louis County'; Territory(5572,1).County_FIPS = 27137; Territory_Table(5572,3) = 27137; % String mismatch
+    Territory(5587,1).County_Name = 'St. Joseph County'; Territory(5587,1).County_FIPS = 18141; Territory_Table(5587,3) = 18141; % String mismatch
+    Territory(5608,1).County_Name = 'Jefferson County'; Territory(5608,1).County_FIPS = 28063; Territory_Table(5608,3) = 28063; % String mismatch
+    Territory(5693,1).County_Name = 'St. Clair County'; Territory(5693,1).County_FIPS = 29185; Territory_Table(5693,3) = 29185; % String mismatch
+    Territory(5763,1).County_Name = 'St. Clair County'; Territory(5763,1).County_FIPS = 17163; Territory_Table(5763,3) = 17163; % String mismatch
+    Territory(5841,1).County_Name = 'St. Mary Parish'; Territory(5841,1).County_FIPS = 22101; Territory_Table(5841,3) = 22101; % String mismatch
+    Territory(5881,1).County_Name = 'St. Louis County'; Territory(5881,1).County_FIPS = 27137; Territory_Table(5881,3) = 27137; % String mismatch
+    Territory(5935,1).County_Name = 'Will County'; Territory(5935,1).County_FIPS = 17197; Territory_Table(5935,3) = 17197; % String mismatch
+    Territory(6054,1).County_Name = 'St. Joseph County'; Territory(6054,1).County_FIPS = 18141; Territory_Table(6054,3) = 18141; % String mismatch
+    Territory(6057,1).County_Name = 'Green County'; Territory(6057,1).County_FIPS = 55045; Territory_Table(6057,3) = 55045; % String mismatch
+    Territory(6082,1).County_Name = 'St. Croix County'; Territory(6082,1).County_FIPS = 55109; Territory_Table(6082,3) = 55109; % String mismatch
+    Territory(6204,1).County_Name = 'St. Lawrence County'; Territory(6204,1).County_FIPS = 36089; Territory_Table(6204,3) = 36089; % String mismatch
+    Territory(6219,1).County_Name = 'Fairfax County'; Territory(6219,1).County_FIPS = 51059; Territory_Table(6219,3) = 51059; % String mismatch
+    Territory(6222,1).County_Name = 'Manassas Park City'; Territory(6222,1).County_FIPS = 51685; Territory_Table(6222,3) = 51685; % String mismatch
+    Territory(6240,1).County_Name = 'Green County'; Territory(6240,1).County_FIPS = 21087; Territory_Table(6240,3) = 21087; % String mismatch
+    Territory(6334,1).County_Name = 'St. Louis County'; Territory(6334,1).County_FIPS = 27137; Territory_Table(6334,3) = 27137; % String mismatch
+    Territory(6381,1).County_Name = 'St. Joseph County'; Territory(6381,1).County_FIPS = 18141; Territory_Table(6381,3) = 18141; % String mismatch
+    Territory(6391,1).County_Name = 'Roberts County'; Territory(6391,1).County_FIPS = 48393; Territory_Table(6391,3) = 48393; % String mismatch
+    Territory(6402,1).County_Name = 'Richmond County'; Territory(6402,1).County_FIPS = 51159; Territory_Table(6402,3) = 51159; % String mismatch
+    Territory(6430,1).County_Name = 'St. Croix County'; Territory(6430,1).County_FIPS = 55109; Territory_Table(6430,3) = 55109; % String mismatch
+    Territory(6869,1).County_Name = 'St. Clair County'; Territory(6869,1).County_FIPS = 29185; Territory_Table(6869,3) = 29185; % String mismatch
+    Territory(7177,1).County_Name = 'De Soto Parish'; Territory(7177,1).County_FIPS = 22031; Territory_Table(7177,3) = 22031; % String mismatch
+    Territory(7433,1).County_Name = 'Petersburg Census Area'; Territory(7433,1).County_FIPS = 02195; Territory_Table(7433,3) = 02195; % String mismatch
+    Territory(7474,1).County_Name = 'St. Croix County'; Territory(7474,1).County_FIPS = 55109; Territory_Table(7474,3) = 55109; % String mismatch
+    Territory(7575,1).County_Name = 'District of Columbia'; Territory(7575,1).County_FIPS = 11000; Territory_Table(7575,3) = 11000; % String mismatch
+    Territory(7577,1).County_Name = 'Prince Georges County'; Territory(7577,1).County_FIPS = 24033; Territory_Table(7577,3) = 24033; % String mismatch
+    Territory(7624,1).County_Name = 'St. Croix County'; Territory(7624,1).County_FIPS = 55109; Territory_Table(7624,3) = 55109; % String mismatch
+    Territory(7661,1).County_Name = 'St. Louis County'; Territory(7661,1).County_FIPS = 27137; Territory_Table(7661,3) = 27137; % String mismatch
+    Territory(7974,1).County_Name = 'Radford City'; Territory(7974,1).County_FIPS = 51750; Territory_Table(7974,3) = 51750; % String mismatch
+    Territory(8098,1).County_Name = 'St. Croix County'; Territory(8098,1).County_FIPS = 55109; Territory_Table(8098,3) = 55109; % String mismatch
+    Territory(8141,1).County_Name = 'Green County'; Territory(8141,1).County_FIPS = 55045; Territory_Table(8141,3) = 55045; % String mismatch
+%     Territory(8186,1).County_Name = 'Roanoke County'; Territory(8186,1).County_FIPS = 51161; Territory_Table(8186,3) = 51161; % String mismatch
+    Territory(8236,1).County_Name = 'St. Clair County'; Territory(8236,1).County_FIPS = 29185; Territory_Table(8236,3) = 29185; % String mismatch
+    Territory(8249,1).County_Name = 'Salem City'; Territory(8249,1).County_FIPS = 51775; Territory_Table(8249,3) = 51775; % String mismatch
+    Territory(8343,1).County_Name = 'Harris County'; Territory(8343,1).County_FIPS = 48201; Territory_Table(8343,3) = 48201; % String mismatch
+    Territory(8373,1).County_Name = 'Green County'; Territory(8373,1).County_FIPS = 55045; Territory_Table(8373,3) = 55045; % String mismatch
+    Territory(8473,1).County_Name = 'Collin County'; Territory(8473,1).County_FIPS = 48085; Territory_Table(8473,3) = 48085; % String mismatch
+    Territory(8537,1).County_Name = 'Frederick County'; Territory(8537,1).County_FIPS = 51069; Territory_Table(8537,3) = 51069; % String mismatch
+    Territory(8546,1).County_Name = 'Winchester City'; Territory(8546,1).County_FIPS = 51840; Territory_Table(8546,3) = 51840; % String mismatch
+    Territory(8557,1).County_Name = 'Carson City'; Territory(8557,1).County_FIPS = 32510; Territory_Table(8557,3) = 32510; % String mismatch
+    Territory(8586,1).County_Name = 'Clay County'; Territory(8586,1).County_FIPS = 19041; Territory_Table(8586,3) = 19041; % String mismatch
+    Territory(8746,1).County_Name = 'St. Martin Parish'; Territory(8746,1).County_FIPS = 22099; Territory_Table(8746,3) = 22099; % String mismatch
+    Territory(8747,1).County_Name = 'St. Mary Parish'; Territory(8747,1).County_FIPS = 22101; Territory_Table(8747,3) = 22101; % String mismatch
+    Territory(8767,1).County_Name = 'White County'; Territory(8767,1).County_FIPS = 17193; Territory_Table(8767,3) = 17193; % String mismatch
+    Territory(8834,1).County_Name = 'Prince Georges County'; Territory(8834,1).County_FIPS = 24033; Territory_Table(8834,3) = 24033; % String mismatch
+    Territory(8835,1).County_Name = 'St. Marys County'; Territory(8835,1).County_FIPS = 24037; Territory_Table(8835,3) = 24037; % String mismatch
+    Territory(8900,1).County_Name = 'Jefferson County'; Territory(8900,1).County_FIPS = 28063; Territory_Table(8900,3) = 28063; % String mismatch
+    Territory(8909,1).County_Name = 'St. Landry Parish'; Territory(8909,1).County_FIPS = 22097; Territory_Table(8909,3) = 22097; % String mismatch
+    Territory(8910,1).County_Name = 'St. Martin Parish'; Territory(8910,1).County_FIPS = 22099; Territory_Table(8910,3) = 22099; % String mismatch
+    Territory(8949,1).County_Name = 'St. Clair County'; Territory(8949,1).County_FIPS = 17163; Territory_Table(8949,3) = 17163; % String mismatch
+    Territory(8967,1).County_Name = 'De Soto Parish'; Territory(8967,1).County_FIPS = 22031; Territory_Table(8967,3) = 22031; % String mismatch
+    Territory(8982,1).County_Name = 'Gray County'; Territory(8982,1).County_FIPS = 48179; Territory_Table(8982,3) = 48179; % String mismatch
+    Territory(9033,1).County_Name = 'Gray County'; Territory(9033,1).County_FIPS = 48179; Territory_Table(9033,3) = 48179; % String mismatch
+    Territory(9052,1).County_Name = 'Roberts County'; Territory(9052,1).County_FIPS = 48393; Territory_Table(9052,3) = 48393; % String mismatch
+    Territory(9063,1).County_Name = 'Clay County'; Territory(9063,1).County_FIPS = 19041; Territory_Table(9063,3) = 19041; % String mismatch
+    Territory(9106,1).County_Name = 'St. Croix County'; Territory(9106,1).County_FIPS = 55109; Territory_Table(9106,3) = 55109; % String mismatch
+    Territory(9113,1).County_Name = 'St. Martin Parish'; Territory(9113,1).County_FIPS = 22099; Territory_Table(9113,3) = 22099; % String mismatch
+    Territory(9226,1).County_Name = 'St. Joseph County'; Territory(9226,1).County_FIPS = 26149; Territory_Table(9226,3) = 26149; % String mismatch
+    Territory(9335,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(9335,1).County_FIPS = 2290; Territory_Table(9335,3) = 2290; % String mismatch
+    Territory(9336,1).County_Name = 'Valdez-Cordova Census Area'; Territory(9336,1).County_FIPS = 2261; Territory_Table(9336,3) = 2261; % String mismatch
+    Territory(9341,1).County_Name = 'Green County'; Territory(9341,1).County_FIPS = 21087; Territory_Table(9341,3) = 21087; % String mismatch
+    Territory(9354,1).County_Name = 'Skagway Municipality'; Territory(9354,1).County_FIPS = 2232; Territory_Table(9354,3) = 2232; % String mismatch
+    Territory(9398,1).County_Name = 'St. Clair County'; Territory(9398,1).County_FIPS = 17163; Territory_Table(9398,3) = 17163; % String mismatch
+    Territory(9429,1).County_Name = 'Skagway Municipality'; Territory(9429,1).County_FIPS = 2232; Territory_Table(9429,3) = 2232; % String mismatch
+    Territory(9430,1).County_Name = 'Wrangell City and Borough'; Territory(9430,1).County_FIPS = 2280; Territory_Table(9430,3) = 2280; % String mismatch
+    Territory(9517,1).County_Name = 'Jack County'; Territory(9517,1).County_FIPS = 48237; Territory_Table(9517,3) = 48237; % String mismatch
+    Territory(9568,1).County_Name = 'Clay County'; Territory(9568,1).County_FIPS = 13061; Territory_Table(9568,3) = 13061; % String mismatch
+    Territory(9614,1).County_Name = 'Lake County'; Territory(9614,1).County_FIPS = 27075; Territory_Table(9614,3) = 27075; % String mismatch
+    Territory(9702,1).County_Name = 'St. Charles County'; Territory(9702,1).County_FIPS = 29183; Territory_Table(9702,3) = 29183; % String mismatch
+    Territory(9703,1).County_Name = 'St. Francois County'; Territory(9644,1).County_FIPS = 29187; Territory_Table(9644,3) = 29187; % String mismatch
+    Territory(9704,1).County_Name = 'St. Louis County'; Territory(9704,1).County_FIPS = 29189; Territory_Table(9704,3) = 29189; % String mismatch
+    Territory(9705,1).County_Name = 'St. Louis City'; Territory(9705,1).County_FIPS = 29510; Territory_Table(9705,3) = 29510; % String mismatch
+    Territory(9706,1).County_Name = 'Ste. Genevieve County'; Territory(9706,1).County_FIPS = 29186; Territory_Table(9706,3) = 29186; % String mismatch
+    Territory(9925,1).County_Name = 'Alexandria City'; Territory(9925,1).County_FIPS = 51510; Territory_Table(9925,3) = 51510; % String mismatch
+    Territory(9933,1).County_Name = 'Bedford County'; Territory(9933,1).County_FIPS = 51019; Territory_Table(9933,3) = 51019; % String mismatch
+    Territory(9934,1).County_Name = 'Bedford City'; Territory(9934,1).County_FIPS = 51515; Territory_Table(9934,3) = 51515; % String mismatch
+    Territory(9938,1).County_Name = 'Buena Vista City'; Territory(9938,1).County_FIPS = 51530; Territory_Table(9938,3) = 51530; % String mismatch
+    Territory(9942,1).County_Name = 'Charlotte County'; Territory(9942,1).County_FIPS = 51037; Territory_Table(9942,3) = 51037; % String mismatch
+    Territory(9943,1).County_Name = 'Charlottesville City'; Territory(9943,1).County_FIPS = 51540; Territory_Table(9943,3) = 51540; % String mismatch
+    Territory(9944,1).County_Name = 'Chesapeake City'; Territory(9944,1).County_FIPS = 51550; Territory_Table(9944,3) = 51550; % String mismatch
+    Territory(9947,1).County_Name = 'Colonial Heights City'; Territory(9947,1).County_FIPS = 51570; Territory_Table(9947,3) = 51570; % String mismatch
+    Territory(9948,1).County_Name = 'Covington City'; Territory(9948,1).County_FIPS = 51580; Territory_Table(9948,3) = 51580; % String mismatch
+    Territory(9952,1).County_Name = 'Emporia City'; Territory(9952,1).County_FIPS = 51595; Territory_Table(9952,3) = 51595; % String mismatch
+    Territory(9954,1).County_Name = 'Fairfax County'; Territory(9954,1).County_FIPS = 51059; Territory_Table(9954,3) = 51059; % String mismatch
+    Territory(9955,1).County_Name = 'Fairfax City'; Territory(9955,1).County_FIPS = 51600; Territory_Table(9955,3) = 51600; % String mismatch
+    Territory(9956,1).County_Name = 'Falls Church City'; Territory(9956,1).County_FIPS = 51610; Territory_Table(9956,3) = 51610; % String mismatch
+    Territory(9959,1).County_Name = 'Franklin County'; Territory(9959,1).County_FIPS = 51067; Territory_Table(9959,3) = 51067; % String mismatch
+    Territory(9960,1).County_Name = 'Fredericksburg City'; Territory(9960,1).County_FIPS = 51630; Territory_Table(9960,3) = 51630; % String mismatch
+    Territory(9966,1).County_Name = 'Hampton City'; Territory(9966,1).County_FIPS = 51650; Territory_Table(9966,3) = 51650; % String mismatch
+    Territory(9968,1).County_Name = 'Harrisonburg City'; Territory(9968,1).County_FIPS = 51660; Territory_Table(9968,3) = 51660; % String mismatch
+    Territory(9970,1).County_Name = 'Hopewell City'; Territory(9970,1).County_FIPS = 51670; Territory_Table(9970,3) = 51670; % String mismatch
+    Territory(9977,1).County_Name = 'Lexington City'; Territory(9977,1).County_FIPS = 51678; Territory_Table(9977,3) = 51678; % String mismatch
+    Territory(9982,1).County_Name = 'Manassas City'; Territory(9982,1).County_FIPS = 51683; Territory_Table(9982,3) = 51683; % String mismatch
+    Territory(9988,1).County_Name = 'Newport News City'; Territory(9988,1).County_FIPS = 51700; Territory_Table(9988,3) = 51700; % String mismatch
+    Territory(9989,1).County_Name = 'Norfolk City'; Territory(9989,1).County_FIPS = 51710; Territory_Table(9989,3) = 51710; % String mismatch
+    Territory(9994,1).County_Name = 'Petersburg City'; Territory(9994,1).County_FIPS = 51730; Territory_Table(9994,3) = 51730; % String mismatch
+    Territory(9996,1).County_Name = 'Poquoson City'; Territory(9996,1).County_FIPS = 51735; Territory_Table(9996,3) = 51735; % String mismatch
+    Territory(9997,1).County_Name = 'Portsmouth City'; Territory(9997,1).County_FIPS = 51740; Territory_Table(9997,3) = 51740; % String mismatch
+    Territory(10002,1).County_Name = 'Richmond County'; Territory(10002,1).County_FIPS = 51159; Territory_Table(10002,3) = 51159; % String mismatch
+    Territory(10003,1).County_Name = 'Richmond City'; Territory(10003,1).County_FIPS = 51760; Territory_Table(10003,3) = 51760; % String mismatch
+    Territory(10010,1).County_Name = 'Staunton City'; Territory(10010,1).County_FIPS = 51790; Territory_Table(10010,3) = 51790; % String mismatch
+    Territory(10011,1).County_Name = 'Suffolk City'; Territory(10011,1).County_FIPS = 51800; Territory_Table(10011,3) = 51800; % String mismatch
+    Territory(10014,1).County_Name = 'Virginia Beach City'; Territory(10014,1).County_FIPS = 51810; Territory_Table(10014,3) = 51810; % String mismatch
+    Territory(10016,1).County_Name = 'Waynesboro City'; Territory(10016,1).County_FIPS = 51820; Territory_Table(10016,3) = 51820; % String mismatch
+    Territory(10018,1).County_Name = 'Williamsburg City'; Territory(10018,1).County_FIPS = 51830; Territory_Table(10018,3) = 51830; % String mismatch
+    Territory(10024,1).County_Name = 'St. Louis County'; Territory(10024,1).County_FIPS = 27137; Territory_Table(10024,3) = 27137; % String mismatch
+    Territory(10060,1).County_Name = 'St. Joseph County'; Territory(10060,1).County_FIPS = 18141; Territory_Table(10060,3) = 18141; % String mismatch
+    Territory(10192,1).County_Name = 'White County'; Territory(10192,1).County_FIPS = 17193; Territory_Table(10192,3) = 17193; % String mismatch
+    Territory(10532,1).County_Name = 'Green County'; Territory(10532,1).County_FIPS = 55045; Territory_Table(10532,3) = 55045; % String mismatch
+    Territory(10591,1).County_Name = 'St. Croix County'; Territory(10591,1).County_FIPS = 55109; Territory_Table(10591,3) = 55109; % String mismatch
+    Territory(10678,1).County_Name = 'Jack County'; Territory(10678,1).County_FIPS = 48237; Territory_Table(10678,3) = 48237; % String mismatch
+    Territory(10694,1).County_Name = 'St. Francis County'; Territory(10694,1).County_FIPS = 5123; Territory_Table(10694,3) = 5123; % String mismatch
+    Territory(10713,1).County_Name = 'Chester County'; Territory(10713,1).County_FIPS = 45023; Territory_Table(10713,3) = 45023; % String mismatch
+    Territory(10717,1).County_Name = 'Wrangell City and Borough'; Territory(10717,1).County_FIPS = 2280; Territory_Table(10717,3) = 2280; % String mismatch
+    Territory(10757,1).County_Name = 'Bedford County'; Territory(10757,1).County_FIPS = 51019; Territory_Table(10757,3) = 51019; % String mismatch
+    Territory(10761,1).County_Name = 'Charlotte County'; Territory(10761,1).County_FIPS = 51037; Territory_Table(10761,3) = 51037; % String mismatch
+    Territory(10793,1).County_Name = 'St. Tammany Parish'; Territory(10793,1).County_FIPS = 22103; Territory_Table(10793,3) = 22103; % String mismatch
+    Territory(11097,1).County_Name = 'Clay County'; Territory(11097,1).County_FIPS = 19041; Territory_Table(11097,3) = 19041; % String mismatch
+    Territory(11299,1).County_Name = 'St. Clair County'; Territory(11299,1).County_FIPS = 29185; Territory_Table(11299,3) = 29185; % String mismatch
+    Territory(11342,1).County_Name = 'Skagway Municipality'; Territory(11342,1).County_FIPS = 2232; Territory_Table(11342,3) = 2232; % String mismatch
+    Territory(11407,1).County_Name = 'Collin County'; Territory(11407,1).County_FIPS = 48085; Territory_Table(11407,3) = 48085; % String mismatch
+    Territory(11424,1).County_Name = 'Jack County'; Territory(11424,1).County_FIPS = 48237; Territory_Table(11424,3) = 48237; % String mismatch
+    Territory(11477,1).County_Name = 'Valdez-Cordova Census Area'; Territory(11477,1).County_FIPS = 2261; Territory_Table(11477,3) = 2261; % String mismatch
+    Territory(11521,1).County_Name = 'Frederick County'; Territory(11521,1).County_FIPS = 51069; Territory_Table(11521,3) = 51069; % String mismatch
+    Territory(11621,1).County_Name = 'St. Clair County'; Territory(11621,1).County_FIPS = 29185; Territory_Table(11621,3) = 29185; % String mismatch
+    Territory(11660,1).County_Name = 'Collin County'; Territory(11660,1).County_FIPS = 48085; Territory_Table(11660,3) = 48085; % String mismatch
+    Territory(11690,1).County_Name = 'Jack County'; Territory(11690,1).County_FIPS = 48237; Territory_Table(11690,3) = 48237; % String mismatch
+    Territory(11776,1).County_Name = 'Harris County'; Territory(11776,1).County_FIPS = 48201; Territory_Table(11776,3) = 48201; % String mismatch
+    Territory(11821,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(11821,1).County_FIPS = 2290; Territory_Table(11821,3) = 2290; % String mismatch
+    Territory(11839,1).County_Name = 'De Witt County'; Territory(11839,1).County_FIPS = 17039; Territory_Table(11839,3) = 17039; % String mismatch
+    Territory(11893,1).County_Name = 'St. Clair County'; Territory(11893,1).County_FIPS = 17163; Territory_Table(11893,3) = 17163; % String mismatch
+    Territory(11902,1).County_Name = 'White County'; Territory(11902,1).County_FIPS = 17193; Territory_Table(11902,3) = 17193; % String mismatch
+    Territory(11905,1).County_Name = 'Yukon-Koyukuk Census Area'; Territory(11905,1).County_FIPS = 2290; Territory_Table(11905,3) = 2290; % String mismatch 
+    end
+    
+    
     if year == 2017
     Territory(108,1).County_Name = 'St. Clair County'; Territory(108,1).County_FIPS = 1117; Territory_Table(108,3) = 1117; % String mismatch
     Territory(123,1).County_Name = 'Prince of Wales-Hyder Census Area'; Territory(123,1).County_FIPS = 2201; Territory_Table(123,3) = 2201; % String mismatch
