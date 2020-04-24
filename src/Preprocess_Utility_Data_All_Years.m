@@ -6,7 +6,7 @@
 % Convert the "Utility_Data_YYYY.xlsx" Excel spreadsheet into a Matlab
 % structure by extracting relevant metadata.
 
-function Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data_mat,year)
+function Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data,year)
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              BEGIN PROCESSING SECTION               %
@@ -138,8 +138,39 @@ function Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data_mat,ye
     Utility = Dummy;
     clear row Dummy
     
+    for row = 1:size(Utility,1)
+        Output_Cell{row,1} = {num2str(Utility(row,1).Utility_Number)}; % Utility Number
+        if isempty(Utility(row,1).Utility_Long_Name) == 0
+           Output_Cell{row,2} = {Utility(row,1).Utility_Long_Name}; % Utility Name
+        else
+           Output_Cell{row,2} = 'Missing';
+        end
+        Output_Cell{row,3} = {num2str(Utility(row,1).State_FIPS)}; % State FIPS
+        Output_Cell{row,4} = {Utility(row,1).State_String}; % State Name
+        if isempty(Utility(row,1).NERC_Region_Code) == 0
+           Output_Cell{row,5} = {num2str(Utility(row,1).NERC_Region_Code)}; % NERC Region Code
+        else
+           Output_Cell{row,5} = num2str(-9999);
+        end
+        if isempty(Utility(row,1).NERC_Region_Long_Name) == 0
+           Output_Cell{row,6} = {Utility(row,1).NERC_Region_Long_Name}; % NERC Region Long Name
+        else
+           Output_Cell{row,6} = 'Missing';
+        end
+        if isempty(Utility(row,1).NERC_Region_Short_Name) == 0
+           Output_Cell{row,7} = {Utility(row,1).NERC_Region_Short_Name}; % NERC Region Short Name
+        else
+           Output_Cell{row,7} = 'Missing';
+        end
+    end
+    clear row
+    
+    Output_Table = cell2table(Output_Cell);
+    Output_Table.Properties.VariableNames = {'Utility_Number','Utility_Name','State_FIPS','State_Name','NERC_Region_Code','NERC_Region_Long_Name','NERC_Region_Short_Name'};
+    
     % Save the output:
-    save(utility_data_mat,'Utility','Utility_Table');
+    writetable(Output_Table,[utility_data,'.csv'],'Delimiter',',','WriteVariableNames',1);
+    save([utility_data,'.mat'],'Utility','Utility_Table');
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %               END PROCESSING SECTION                %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

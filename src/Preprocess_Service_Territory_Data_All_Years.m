@@ -6,7 +6,7 @@
 % Convert the "Service_Territory_YYYY.xlsx" Excel spreadsheet into a Matlab
 % structure by extracting relevant metadata.
 
-function Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,service_territory_mat,county_metadata_mat,year)
+function Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,service_territory,county_metadata,year)
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              BEGIN PROCESSING SECTION               %
@@ -21,7 +21,7 @@ function Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,serv
     end
     
     % Load in the county metadata file processed using the "Process_County_Data_All_Years.m" script:
-    load(county_metadata_mat);
+    load([county_metadata,'.mat']);
 
     % Read the raw data from the spreadsheet into a cell structure:
     if year == 2016
@@ -282,7 +282,7 @@ function Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,serv
     Territory(9568,1).County_Name = 'Clay County'; Territory(9568,1).County_FIPS = 13061; Territory_Table(9568,3) = 13061; % String mismatch
     Territory(9614,1).County_Name = 'Lake County'; Territory(9614,1).County_FIPS = 27075; Territory_Table(9614,3) = 27075; % String mismatch
     Territory(9702,1).County_Name = 'St. Charles County'; Territory(9702,1).County_FIPS = 29183; Territory_Table(9702,3) = 29183; % String mismatch
-    Territory(9703,1).County_Name = 'St. Francois County'; Territory(9644,1).County_FIPS = 29187; Territory_Table(9644,3) = 29187; % String mismatch
+    Territory(9703,1).County_Name = 'St. Francois County'; Territory(9703,1).County_FIPS = 29187; Territory_Table(9703,3) = 29187; % String mismatch
     Territory(9704,1).County_Name = 'St. Louis County'; Territory(9704,1).County_FIPS = 29189; Territory_Table(9704,3) = 29189; % String mismatch
     Territory(9705,1).County_Name = 'St. Louis City'; Territory(9705,1).County_FIPS = 29510; Territory_Table(9705,3) = 29510; % String mismatch
     Territory(9706,1).County_Name = 'Ste. Genevieve County'; Territory(9706,1).County_FIPS = 29186; Territory_Table(9706,3) = 29186; % String mismatch
@@ -866,10 +866,30 @@ function Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,serv
     Territory = Dummy;
     clear row Dummy
     
-    % Rename the two key variables and save the output:
+    % Rename the two key variables:
     Service_Territory = Territory; clear Territory
     Service_Territory_Table = Territory_Table; clear Territory_Table
-    save(service_territory_mat,'Service_Territory','Service_Territory_Table');
+    
+    for row = 1:size(Service_Territory,1)
+        Output_Cell{row,1} = {num2str(Service_Territory(row,1).Utility_Number)}; % Utility Number
+        if isempty(Service_Territory(row,1).Utility_Name) == 0
+           Output_Cell{row,2} = {Service_Territory(row,1).Utility_Name}; % Utility Name
+        else
+           Output_Cell{row,2} = 'Missing';
+        end
+        Output_Cell{row,3} = {num2str(Service_Territory(row,1).County_FIPS)}; % County FIPS
+        Output_Cell{row,4} = {Service_Territory(row,1).County_Name}; % County Name
+        Output_Cell{row,5} = {num2str(Service_Territory(row,1).State_FIPS)}; % State FIPS
+        Output_Cell{row,6} = {Service_Territory(row,1).State_String}; % State Name
+    end
+    clear row
+    
+    Output_Table = cell2table(Output_Cell);
+    Output_Table.Properties.VariableNames = {'Utility_Number','Utility_Name','County_FIPS','County_Name','State_FIPS','State_Name'};
+    
+    % Save the output:
+    writetable(Output_Table,[service_territory,'.csv'],'Delimiter',',','WriteVariableNames',1);
+    save([service_territory,'.mat'],'Service_Territory','Service_Territory_Table');
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %               END PROCESSING SECTION                %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

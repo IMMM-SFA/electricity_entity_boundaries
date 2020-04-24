@@ -8,7 +8,7 @@
 % house and gives the FIPS code, county name, state information, and total population
 % estimated by the census bureau for all counties in the United States from 2000-2019.
 
-function Preprocess_County_Data_All_Years(county_populations_csv,county_metadata_mat,county_shapefile,year)
+function Preprocess_County_Data_All_Years(county_populations_csv,county_metadata,county_shapefile,year)
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              BEGIN PROCESSING SECTION               %
@@ -96,7 +96,7 @@ function Preprocess_County_Data_All_Years(county_populations_csv,county_metadata
     % Rename the two key variables and save the output:
     County_Metadata = Metadata; clear Metadata
     County_Metadata_Table = Metadata_Table; clear Metadata_Table
-    save(county_metadata_mat,'County_Metadata','County_Metadata_Table');
+    save([county_metadata,'.mat'],'County_Metadata','County_Metadata_Table');
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %               END PROCESSING SECTION                %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

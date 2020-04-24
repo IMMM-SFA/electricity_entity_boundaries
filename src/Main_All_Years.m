@@ -36,12 +36,12 @@ function Main_All_Years(ini_file)
     county_shapefile = ini.GetValues(in_data_section, 'county_shapefile');
 
     % output data variables
-    county_metadata_mat = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/county_populations_',num2str(year),'.mat'];
-    sales_ult_customer_mat = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/sales_ult_cust_',num2str(year),'.mat'];
-    service_territory_mat = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/service_territory_',num2str(year),'.mat'];
-    utility_data_mat = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/utility_data_',num2str(year),'.mat'];
-    output_summary_mat = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/electricity_entity_boundaries_',num2str(year),'.mat'];
-
+    county_metadata = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/county_populations_',num2str(year)];
+    sales_ult_customer = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/sales_ult_cust_',num2str(year)];
+    service_territory = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/service_territory_',num2str(year)];
+    utility_data = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/utility_data_',num2str(year)];
+    output_summary = [ini.GetValues(out_data_section, 'output_data_path'),num2str(year),'/electricity_entity_mapping_',num2str(year)];
+    
     % figure variables
     lat_min = ini.GetValues(figure_section, 'lat_min');
     lat_max = ini.GetValues(figure_section, 'lat_max');
@@ -56,23 +56,23 @@ function Main_All_Years(ini_file)
     % run preprocessing of source data if user selected
     if run_data_prep == 1
         % prepare county metadata mat file
-        Preprocess_County_Data_All_Years(county_populations_csv,county_metadata_mat,county_shapefile,year);
+        Preprocess_County_Data_All_Years(county_populations_csv,county_metadata,county_shapefile,year);
 
         % prepare sales by utility and customer mat file
-        Preprocess_Sales_Ult_Customer_Data_All_Years(sales_ult_customer_xlsx,sales_ult_customer_mat,year);
+        Preprocess_Sales_Ult_Customer_Data_All_Years(sales_ult_customer_xlsx,sales_ult_customer,year);
 
         % prepare service by territory mat file
-        Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,service_territory_mat,county_metadata_mat,year);
+        Preprocess_Service_Territory_Data_All_Years(service_territory_xlsx,service_territory,county_metadata,year);
 
         % prepare utility data mat file
-        Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data_mat,year);
+        Preprocess_Utility_Data_All_Years(utility_data_xlsx,utility_data,year);
     end
 
     % run main processing to generate output summary mat file
-    Process_Entity_Relationships_All_Years(county_metadata_mat,sales_ult_customer_mat,service_territory_mat,utility_data_mat,output_summary_mat);
+    Process_Entity_Relationships_All_Years(county_metadata,sales_ult_customer,service_territory,utility_data,output_summary);
 
     % run plotting module
     if run_plots == 1
-       Plot_Entity_Maps_All_Years(output_summary_mat,year,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_bas_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max);
+       Plot_Entity_Maps_All_Years(output_summary,year,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_bas_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max);
     end
 end

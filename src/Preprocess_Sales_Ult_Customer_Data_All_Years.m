@@ -6,7 +6,7 @@
 % Convert the "Sales_Ult_Cust_YYYY.xlsx" Excel spreadsheet into a Matlab
 % structure by extracting relevant metadata.
 
-function Preprocess_Sales_Ult_Customer_Data_All_Years(sales_ult_customer_xlsx,sales_ult_customer_mat,year)
+function Preprocess_Sales_Ult_Customer_Data_All_Years(sales_ult_customer_xlsx,sales_ult_customer,year)
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %              BEGIN PROCESSING SECTION               %
@@ -67,8 +67,49 @@ function Preprocess_Sales_Ult_Customer_Data_All_Years(sales_ult_customer_xlsx,sa
     Utility = Dummy;
     clear row Dummy
     
+    for row = 1:size(Utility,1)
+        Output_Cell{row,1} = {num2str(Utility(row,1).Utility_Number)}; % Utility Number
+        if isempty(Utility(row,1).Utility_Long_Name) == 0
+           Output_Cell{row,2} = {Utility(row,1).Utility_Long_Name}; % Utility Number
+        else
+           Output_Cell{row,2} = 'Missing';
+        end
+        Output_Cell{row,3} = {num2str(Utility(row,1).State_FIPS)}; % State FIPS
+        Output_Cell{row,4} = {Utility(row,1).State_String}; % State Name
+        if isnan(Utility(row,1).Total_Sales) == 0
+           Output_Cell{row,5} = {num2str(Utility(row,1).Total_Sales)}; % Total Sales in Year
+        else
+           Output_Cell{row,5} = num2str(-9999);
+        end
+        if isempty(Utility(row,1).BA_Code) == 0
+           Output_Cell{row,6} = {num2str(Utility(row,1).BA_Code)}; % BA Code
+        else
+           Output_Cell{row,6} = num2str(-9999);
+        end
+        if isempty(Utility(row,1).BA_Number) == 0
+           Output_Cell{row,7} = {num2str(Utility(row,1).BA_Number)}; % BA Number
+        else
+           Output_Cell{row,7} = num2str(-9999);
+        end
+        if isempty(Utility(row,1).BA_Long_Name) == 0
+           Output_Cell{row,8} = {Utility(row,1).BA_Long_Name}; % BA Long Name
+        else
+           Output_Cell{row,8} = 'Missing';
+        end
+        if isempty(Utility(row,1).BA_Short_Name) == 0
+           Output_Cell{row,9} = {Utility(row,1).BA_Short_Name}; % BA Short Name
+        else
+           Output_Cell{row,9} = 'Missing';
+        end
+    end
+    clear row
+    
+    Output_Table = cell2table(Output_Cell);
+    Output_Table.Properties.VariableNames = {'Utility_Number','Utility_Name','State_FIPS','State_Name','Total_Sales_MWh','BA_Code','BA_Number','BA_Long_Name','BA_Short_Name'};
+    
     % Save the output
-    save(sales_ult_customer_mat,'Utility','Utility_Table');
+    writetable(Output_Table,[sales_ult_customer,'.csv'],'Delimiter',',','WriteVariableNames',1);
+    save([sales_ult_customer,'.mat'],'Utility','Utility_Table');
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %               END PROCESSING SECTION                %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
