@@ -70,11 +70,15 @@ The base resource for this mapping is the EIA-861 annual report on the electric 
     *	Required Functions:
         *	`State_FIPS_From_State_Abbreviations.m`
 
-5.	Merge all of the above datasets by mapping utilities to BAs to NERC regions and eventually to counties in the U.S. The output data file is a structure with each row being a county and then embedded in the structure for that row is all of the utilities operating in that county and their associated BA and NERC region. In counties with more than one BA or NERC region listed, which happens quite often, the county is assigned to the utility with the highest total sales of electricity. The full output is stored in a Matlab file (`electricity_entity_boundaries_YYYY.mat`).
+5.	Merge all of the above datasets by mapping utilities to BAs to NERC regions and eventually to counties in the U.S. The output is stored in both .mat and .csv format (e.g., `electricity_entity_mapping_YYYY.mat`). Data in the .mat file is a structure with each row being a county and then embedded in the structure for that row is all of the utilities operating in that county and their associated BA and NERC region. In counties with more than one BA or NERC region listed, which happens quite often, the county is assigned to the utility with the highest total sales of electricity. The .csv file has a row for each county/utility combination.
     *	Scripts:
         *	`Process_Entity_Relationships_All_Years.m`
 
-6.	Create and save maps of counties in the CONUS with their number of utilities, number of BAs, primary BA, number of NERC regions, and primary NERC region.
+6.	This optional script manually corrects select counties to improve spatial consistency in the maps. NERC region corrections were implemented for counties that had more than one NERC region with valid data and were also spatially removed more than 1-county in any direction from the contiguous NERC region they were originally assigned to. This optional functionality can be toggled on/off by modifying the config.ini file.
+    *	Scripts:
+        *	`Process_Manual_Corrections_YYYY.m`
+
+7.	Create and save maps of counties in the CONUS with their number of utilities, number of BAs, primary BA, number of NERC regions, and primary NERC region.
     *	Scripts:
         *	`Plot_Entity_Maps_All_Years.m`
     *	Required Functions:

@@ -5,8 +5,8 @@
 
 % Manually correct to enhance spatial consistency of BAs and NERC regions.
 % NERC region corrections were implemented for counties that had more than 
-% one NERC region with valid data and were more than 1-county in any direction
-% spatially removed from the contiguous NERC region they were originally 
+% one NERC region with valid data and were spatially removed more than 1-county 
+% in any direction from the contiguous NERC region they were originally 
 % assigned to.
 
 function Process_Manual_Corrections_2018(output_summary,year)
