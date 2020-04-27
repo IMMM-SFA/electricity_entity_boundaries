@@ -1,5 +1,5 @@
 # electricity_entity_boundaries
-Nested boundaries for electricity entities (e.g., counties, utilities, balancing authority areas, NERC regions, and subregions) including workflow processing for automated mapping. This repository contains a generic version of the code that works for the 2016-2018 versions of the EIA-861 dataset. Input files, including the raw versions of the EIA-861 datasets, are included in this repository.
+Nested boundaries for electricity entities (e.g., counties, utilities, balancing authority areas, and North American Reliability Corporation [NERC] regions) including workflow processing for automated mapping. This repository contains a generic version of the code that works for the 2016-2018 versions of the EIA-861 dataset. Input files, including the raw versions of the EIA-861 datasets, are included in this repository.
 
 ## Contact
 Casey Burleyson, PNNL,
@@ -28,20 +28,20 @@ The base resource for this mapping is the EIA-861 annual report on the electric 
     * _Purpose_: Contains all of the detailed files described below
 
 2. Sales to Ultimate Customers
-    * _Source_: `Sales_Ult_Cust_YYYY.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
+    * _Source_: `Sales_Ult_Cust_YYYY.xlsx` from the annual EIA-861 zip file
     * _Purpose_: Maps utilities to balancing authorities (BAs) and provides the total sales for each utility that are used as a tie-breaker when more than there is more than one BA or NERC region per county.
 
 3. Utility Data
-    * _Source_: `Utility_Data_YYYY.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
+    * _Source_: `Utility_Data_YYYY.xlsx` from the annual EIA-861 zip file
     * _Purpose_: Maps utilities to NERC regions.
 
-4. County Metadata
-    * _Source_: This csv file (`county_populations_2000_to_2019.csv`) was made in house and gives the FIPS code, county name, state name, and total population estimated by the census bureau in 2000-2019 for all counties in the United States.
-    * _Purpose_: Gives basic county information needed for mapping and scaling.
-
-5. Service Territory
-    * _Source_: `Service_Territory_YYYY.xlsx` from the [EIA-861](https://www.eia.gov/electricity/data/eia861/) zip file
+4. Service Territory
+    * _Source_: `Service_Territory_YYYY.xlsx` from the annual EIA-861 zip file
     * _Purpose_: Maps utilities to the states and counties that they operate in.
+
+5. County Populations and Shapefiles
+    * _Source_: This csv file (`county_populations_2000_to_2019.csv`) was made in house using the U.S. Census “National Population Totals and Components of Change” Dataset. The .csv and gives the FIPS code, county name, state name, and total population estimated by the census bureau in 2000-2019 for all counties in the United States. Also included in the "Input_Files" directory are shape files for U.S. counties used in the script to plot the output of this mapping.
+    * _Purpose_: Gives basic county information needed for mapping and scaling.
 
 ## What the Code Does
 
