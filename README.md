@@ -74,7 +74,7 @@ The base resource for this mapping is the EIA-861 annual report on the electric 
     *	Scripts:
         *	`Process_Entity_Relationships_All_Years.m`
 
-6.	This optional script manually corrects select counties to improve spatial consistency in the maps. NERC region corrections were implemented for counties that had more than one NERC region with valid data and were also spatially removed more than 1-county in any direction from the contiguous NERC region they were originally assigned to. This optional functionality can be toggled on/off by modifying the config.ini file.
+6.	Manually correct select counties to improve spatial consistency in the maps. NERC region corrections were implemented for counties that had more than one NERC region with valid data and were also spatially removed more than 1-county in any direction from the contiguous NERC region they were originally assigned to. This optional functionality can be toggled on/off by modifying the config.ini file.
     *	Scripts:
         *	`Process_Manual_Corrections_YYYY.m`
 
