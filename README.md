@@ -40,7 +40,7 @@ The base resource for this mapping is the EIA-861 annual report on the electric 
     * _Purpose_: Maps utilities to the states and counties that they operate in.
 
 5. County Populations and Shapefiles
-    * _Source_: This csv file (`county_populations_2000_to_2019.csv`) was made in house using the U.S. Census “National Population Totals and Components of Change” Dataset. The .csv and gives the FIPS code, county name, state name, and total population estimated by the census bureau in 2000-2019 for all counties in the United States. Also included in the "Input_Files" directory are shape files for U.S. counties used in the script to plot the output of this mapping.
+    * _Source_: This csv file (`county_populations_2000_to_2019.csv`) was made in house using the [U.S. Census “National Population Totals and Components of Change” dataset] (https://www.census.gov/data/tables/time-series/demo/popest/2010s-national-total.html). The .csv and gives the FIPS code, county name, state name, and total population estimated by the census bureau in 2000-2019 for all counties in the United States. Also included in the "Input_Files" directory are shape files for U.S. counties used in the script to plot the output of this mapping.
     * _Purpose_: Gives basic county information needed for mapping and scaling.
 
 ## What the Code Does
