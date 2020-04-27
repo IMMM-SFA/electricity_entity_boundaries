@@ -106,25 +106,25 @@ function Process_Entity_Relationships_All_Years(county_metadata,sales_ult_custom
                   Stats(i,3) = NaN.*0;
                end
            end
-           if isempty(find(isnan(Stats(:,3)) == 0)) == 0
-              if isempty(find(isnan(Stats(:,1)) == 0)) == 0
-                 County_Metadata_Table(row,8) = size(unique(Stats(:,1)),1);
+           if isempty(find(isnan(Stats(:,1)) == 0)) == 0
+              County_Metadata_Table(row,8) = size(unique(Stats(:,1)),1);
+              if isempty(find(isnan(Stats(:,3)) == 0)) == 0
                  County_Metadata_Table(row,9) = unique(Stats(find(Stats(:,3) == max(Stats(:,3))),1));
               else
-                 County_Metadata_Table(row,8:9) = NaN.*0;
-              end
-              if isempty(find(isnan(Stats(:,2)) == 0)) == 0
-                 if size(unique(Stats(find(Stats(:,3) == max(Stats(:,3))),2)),1) == 1
-                    County_Metadata_Table(row,10) = size(unique(Stats(:,2)),1);
-                    County_Metadata_Table(row,11) = unique(Stats(find(Stats(:,3) == max(Stats(:,3))),2));
-                 else
-                    County_Metadata_Table(row,10:11) = NaN.*0;
-                 end
-              else
-                 County_Metadata_Table(row,8:11) = NaN.*0;
+                 County_Metadata_Table(row,9) = unique(Stats(find(isnan(Stats(:,1)) == 0),1));
               end
            else
-              County_Metadata_Table(row,8:11) = NaN.*0;
+              County_Metadata_Table(row,8:9) = NaN.*0;
+           end
+           if isempty(find(isnan(Stats(:,2)) == 0)) == 0
+              County_Metadata_Table(row,10) = size(unique(Stats(:,2)),1);
+              if isempty(find(isnan(Stats(:,3)) == 0)) == 0
+                 County_Metadata_Table(row,11) = unique(Stats(find(Stats(:,3) == max(Stats(:,3))),2));
+              else
+                 County_Metadata_Table(row,11) = unique(Stats(find(isnan(Stats(:,2)) == 0),2));
+              end
+           else
+              County_Metadata_Table(row,10:11) = NaN.*0;
            end
            clear i Subset Stats
         else
