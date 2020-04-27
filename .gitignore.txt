@@ -1,0 +1,11 @@
+# Windows default autosave extension
+*.asv
+
+# OSX / *nix default autosave extension
+*.m~
+
+# Output file directories
+Output_Files/*.*
+
+# System files
+.DS_Store
