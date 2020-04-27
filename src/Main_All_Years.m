@@ -25,6 +25,7 @@ function Main_All_Years(ini_file)
 
     % project level settings
     run_data_prep = ini.GetValues(project_section, 'run_data_prep');
+    run_manual_corrections = ini.GetValues(project_section, 'run_manual_corrections');
     run_plots = ini.GetValues(project_section, 'run_plots');
     year = ini.GetValues(project_section, 'year');
 
@@ -71,6 +72,13 @@ function Main_All_Years(ini_file)
     % run main processing to generate output summary mat file
     Process_Entity_Relationships_All_Years(county_metadata,sales_ult_customer,service_territory,utility_data,output_summary);
 
+    % run manual corrections
+    if run_manual_corrections == 1
+       if year == 2016; Process_Manual_Corrections_2016(output_summary,year); end
+       if year == 2017; Process_Manual_Corrections_2017(output_summary,year); end
+       if year == 2018; Process_Manual_Corrections_2018(output_summary,year); end
+    end
+    
     % run plotting module
     if run_plots == 1
        Plot_Entity_Maps_All_Years(output_summary,year,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_bas_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max);

@@ -32,83 +32,42 @@ function Process_Entity_Relationships_All_Years(county_metadata,sales_ult_custom
     % mapping:
     load([service_territory,'.mat']);
 
-    % Loop through the Utility to BA dataset and match utility to NERC region:
-    for row = 1:size(Utility_to_BA,1)
-        % For each utility in the utility to BA mapping dataset, find the same utility in the utility to NERC region mapping dataset:
-        if isempty(find(Utility_to_NERC_Table(:,1) == Utility_to_BA_Table(row,1))) == 0
-           index = find(Utility_to_NERC_Table(:,1) == Utility_to_BA_Table(row,1));
-           Utility_to_BA(row,1).NERC_Region_Code = Utility_to_NERC(index,1).NERC_Region_Code; % Assign the NERC region in house numeric code
-           Utility_to_BA(row,1).NERC_Region_Short_Name = Utility_to_NERC(index,1).NERC_Region_Short_Name; % Assign the NERC region short name
-           Utility_to_BA(row,1).NERC_Region_Long_Name = Utility_to_NERC(index,1).NERC_Region_Long_Name; % Assign the NERC region long name
-           Utility_to_BA_Table(row,6) = Utility_to_NERC_Table(index,3); % Add the NERC region in house numeric code to the table for easier searching and sorting
+    % Loop through the Service_Territory dataset and match utilities to NERC regions:
+    for row = 1:size(Service_Territory_Table,1)
+        if isempty(find(Utility_to_NERC_Table(:,1) == Service_Territory_Table(row,1))) == 0
+           index = find(Utility_to_NERC_Table(:,1) == Service_Territory_Table(row,1));
+           Service_Territory(row).NERC_Region_Code = Utility_to_NERC(index).NERC_Region_Code;
+           Service_Territory(row).NERC_Region_Short_Name = Utility_to_NERC(index).NERC_Region_Short_Name;
+           Service_Territory(row).NERC_Region_Long_Name = Utility_to_NERC(index).NERC_Region_Long_Name;
            clear index
         else
-           % If there is no unique match, set the NERC region variables to missing for that utility:
-           Utility_to_BA(row,1).NERC_Region_Code = [];
-           Utility_to_BA(row,1).NERC_Region_Short_Name = [];
-           Utility_to_BA(row,1).NERC_Region_Long_Name = [];
-           Utility_to_BA_Table(row,6) = NaN.*0;
+           Service_Territory(row).NERC_Region_Code = [];
+           Service_Territory(row).NERC_Region_Short_Name = [];
+           Service_Territory(row).NERC_Region_Long_Name = [];
         end
     end
-    clear row Utility_to_NERC_Table Utility_to_NERC
-
-    % Loop through the Service Territory dataset and match utility/county to NERC region and BA:
-    for row = 1:size(Service_Territory,1)
-        % For each utility in the utility to county mapping dataset, find the same utility in the utility to BA to NERC region mapping dataset:
-        if isempty(find(Utility_to_BA_Table(:,1) == Service_Territory_Table(row,1) & Utility_to_BA_Table(:,2) == Service_Territory_Table(row,2))) == 0
-           Utility_to_BA_Subset = Utility_to_BA(find(Utility_to_BA_Table(:,1) == Service_Territory_Table(row,1) & Utility_to_BA_Table(:,2) == Service_Territory_Table(row,2)),1);
-           Utility_to_BA_Table_Subset = Utility_to_BA_Table(find(Utility_to_BA_Table(:,1) == Service_Territory_Table(row,1) & Utility_to_BA_Table(:,2) == Service_Territory_Table(row,2)),:);
-           % If there is more than one BA operating in that county, note the utility/BA with the highest total sales:
-           if size(Utility_to_BA_Subset,1) > 1
-              Subset = Utility_to_BA_Subset(find(Utility_to_BA_Table_Subset(:,5) == max(Utility_to_BA_Table_Subset(:,5))),:);
-              Table_Subset = Utility_to_BA_Table_Subset(find(Utility_to_BA_Table_Subset(:,5) == max(Utility_to_BA_Table_Subset(:,5))),:);
-           else
-              Subset = Utility_to_BA_Subset;
-              Table_Subset = Utility_to_BA_Table_Subset;
-           end
-           clear Utility_to_BA_Subset Utility_to_BA_Table_Subset
-           if isempty(Subset(1,1).BA_Number) == 0
-              Service_Territory_Table(row,4) = Subset(1,1).BA_Number;
-              Service_Territory(row,1).BA_Number = Subset(1,1).BA_Number;
-              Service_Territory(row,1).BA_Code = Subset(1,1).BA_Code;
-              Service_Territory(row,1).BA_Long_Name = Subset(1,1).BA_Long_Name;
-              Service_Territory(row,1).BA_Short_Name = Subset(1,1).BA_Short_Name;
-           else
-              Service_Territory_Table(row,4) = NaN.*0;
-              Service_Territory(row,1).BA_Number = [];
-              Service_Territory(row,1).BA_Code = [];
-              Service_Territory(row,1).BA_Long_Name = [];
-              Service_Territory(row,1).BA_Short_Name = [];
-           end
-           if isempty(Subset(1,1).NERC_Region_Code) == 0
-              Service_Territory_Table(row,5) = Subset(1,1).NERC_Region_Code;
-              Service_Territory(row,1).NERC_Region_Code = Subset(1,1).NERC_Region_Code;
-              Service_Territory(row,1).NERC_Region_Long_Name = Subset(1,1).NERC_Region_Long_Name;
-              Service_Territory(row,1).NERC_Region_Short_Name = Subset(1,1).NERC_Region_Short_Name;
-           else
-              Service_Territory_Table(row,5) = NaN.*0;
-              Service_Territory(row,1).NERC_Region_Code = [];
-              Service_Territory(row,1).NERC_Region_Long_Name = [];
-              Service_Territory(row,1).NERC_Region_Short_Name = [];
-           end
-           Service_Territory(row,1).Total_Sales = Subset(1,1).Total_Sales;
-           clear Subset Table_Subset
+    clear row Utility_to_NERC Utility_to_NERC_Table
+    
+    % Loop through the Service_Territory dataset and match utilities to BAs:
+    for row = 1:size(Service_Territory_Table,1)
+        if isempty(find(Utility_to_BA_Table(:,1) == Service_Territory_Table(row,1) & Utility_to_BA_Table(:,2) == Service_Territory_Table(row,2))) == 0;
+           index = find(Utility_to_BA_Table(:,1) == Service_Territory_Table(row,1) & Utility_to_BA_Table(:,2) == Service_Territory_Table(row,2));
+           Service_Territory(row).BA_Code = Utility_to_BA(index).BA_Code;
+           Service_Territory(row).BA_Number = Utility_to_BA(index).BA_Number;
+           Service_Territory(row).BA_Short_Name = Utility_to_BA(index).BA_Short_Name;
+           Service_Territory(row).BA_Long_Name = Utility_to_BA(index).BA_Long_Name;
+           Service_Territory(row).Total_Sales = Utility_to_BA(index).Total_Sales;
+           clear index
         else
-           % If there is no unique match, set the variables to missing for that utility:
-           Service_Territory(row,1).BA_Number = [];
-           Service_Territory(row,1).BA_Code = [];
-           Service_Territory(row,1).BA_Long_Name = [];
-           Service_Territory(row,1).BA_Short_Name = [];
-           Service_Territory(row,1).NERC_Region_Code = [];
-           Service_Territory(row,1).NERC_Region_Long_Name = [];
-           Service_Territory(row,1).NERC_Region_Short_Name = [];
-           Service_Territory(row,1).Total_Sales = NaN.*0;
-           Service_Territory_Table(row,4) = NaN.*0;
-           Service_Territory_Table(row,5) = NaN.*0;
+           Service_Territory(row).BA_Code = [];
+           Service_Territory(row).BA_Number = [];
+           Service_Territory(row).BA_Short_Name = [];
+           Service_Territory(row).BA_Long_Name = [];
+           Service_Territory(row).Total_Sales = NaN.*0;
         end
     end
-    clear row Utility_to_BA_Table Utility_to_BA
-
+    clear row Utility_to_BA Utility_to_BA_Table
+    
     % Loop through the list of all counties in the United States and assign all of the utilities that are operating in that county:
     for row = 1:size(County_Metadata,1)
         if isempty(find(Service_Territory_Table(:,3) == County_Metadata_Table(row,1))) == 0
@@ -173,7 +132,7 @@ function Process_Entity_Relationships_All_Years(county_metadata,sales_ult_custom
         end
     end
     clear row
-
+    
     i = 0;
     for row = 1:size(County_Metadata,1)
         if isempty(County_Metadata(row,1).Utilities) == 0

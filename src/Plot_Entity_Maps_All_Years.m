@@ -6,7 +6,7 @@
 % Create and save maps of counties in the CONUS with their number of utilities,
 % number of BAs, primary BA, number of NERC regions, and primary NERC region.
 
-function Plot_Entity_Maps_All_Years(output_summary_mat,year,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_ba_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max)
+function Plot_Entity_Maps_All_Years(output_summary,year,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_ba_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max)
 
     % Choose whether or not to save the figures generated (1 = yes):
     save_images = 1;
@@ -15,7 +15,7 @@ function Plot_Entity_Maps_All_Years(output_summary_mat,year,number_of_utilities_
     %              BEGIN PROCESSING SECTION               %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Load in the Utility to BA to NERC region to county dataset:
-    load(output_summary_mat);
+    load([output_summary,'.mat']);
 
     % For plotting purposes, assign a unique 1:n number to all of the BAs that
     % will be plotted:
