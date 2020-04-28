@@ -81,6 +81,6 @@ function Main_All_Years(ini_file)
     
     % run plotting module
     if run_plots == 1
-       Plot_Entity_Maps_All_Years(output_summary,year,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_bas_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max);
+       Plot_Entity_Maps_All_Years(output_summary,run_manual_corrections,year,number_of_utilities_png,number_of_nerc_regions_png,primary_nerc_region_png,number_of_bas_png,primary_ba_png,lat_min,lat_max,lon_min,lon_max);
     end
 end
